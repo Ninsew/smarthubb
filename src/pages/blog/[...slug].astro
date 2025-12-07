@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+const { Content } = await post.render();
+
+// Calculate reading time (rough estimate)
+const wordCount = post.body.split(/\s+/).length;
+const readingTime = Math.ceil(wordCount / 200);
+
+// Get related posts (same category or matching tags)
+const relatedPosts = allPosts
+  .filter(p => p.slug !== post.slug) // Exclude current post
+  .map(p => {
+    let score = 0;
+    // Same category = high relevance
+    if (p.data.category && post.data.category &&
+        p.data.category.toLowerCase() === post.data.category.toLowerCase()) {
+      score += 3;
+    }
+    // Matching tags = relevance
+    if (p.data.tags && post.data.tags) {
+      const matchingTags = p.data.tags.filter(tag =>
+        post.data.tags.map(t => t.toLowerCase()).includes(tag.toLowerCase())
+      );
+      score += matchingTags.length;
+    }
+    return { post: p, score };
+  })
+  .filter(item => item.score > 0) // Only posts with some relevance
+  .sort((a, b) => b.score - a.score) // Sort by relevance
+  .slice(0, 3) // Take top 3
+  .map(item => item.post);
+
+// If no related posts found, just get recent posts
+const displayPosts = relatedPosts.length > 0
+  ? relatedPosts
+  : allPosts
+      .filter(p => p.slug !== post.slug)
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+      .slice(0, 3);
+---
+
+<ArticleLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  heroImage={post.data.heroImage}
+  category={post.data.category}
+  tags={post.data.tags}
+  readingTime={readingTime}
+  slug={post.slug}
+  relatedPosts={displayPosts}
+>
+  <Content />
+</ArticleLayout>

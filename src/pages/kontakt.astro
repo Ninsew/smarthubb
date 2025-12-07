@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontakta SmartHem.nu - vi hjälper dig gärna med frågor om smarta hem och Home Assistant.">
+
+  <!-- Page Header -->
+  <div class="blog-header">
+    <div class="container">
+      <h1>Kontakta oss</h1>
+      <p>Har du frågor, förslag eller vill samarbeta? Vi hör gärna från dig!</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <h3>E-post</h3>
+            <p>Det snabbaste sättet att nå oss</p>
+            <a href="mailto:hej@smarthem.nu" class="contact-link">hej@smarthem.nu</a>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            </div>
+            <h3>Sociala medier</h3>
+            <p>Följ oss för tips och nyheter</p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook">Facebook</a>
+              <a href="#" aria-label="YouTube">YouTube</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>Svarstid</h3>
+            <p>Vi svarar normalt inom 1-2 arbetsdagar</p>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h2>Skicka ett meddelande</h2>
+          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div class="form-group">
+              <label for="name">Namn</label>
+              <input type="text" id="name" name="name" required placeholder="Ditt namn">
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-post</label>
+              <input type="email" id="email" name="email" required placeholder="din@email.se">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Ämne</label>
+              <select id="subject" name="subject" required>
+                <option value="">Välj ämne...</option>
+                <option value="fraga">Fråga om smart hem</option>
+                <option value="samarbete">Samarbete</option>
+                <option value="feedback">Feedback på sajten</option>
+                <option value="fel">Rapportera fel</option>
+                <option value="annat">Annat</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Meddelande</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Skriv ditt meddelande här..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Skicka meddelande
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-12);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr 1.5fr;
+    }
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .contact-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .contact-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-100);
+    border-radius: var(--radius-lg);
+    color: var(--color-primary-600);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .contact-card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .contact-card h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .contact-card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .contact-link {
+    color: var(--color-primary-600);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+
+  .contact-link:hover {
+    color: var(--color-primary-700);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--spacing-4);
+  }
+
+  .social-links a {
+    color: var(--color-primary-600);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+  }
+
+  .social-links a:hover {
+    color: var(--color-primary-700);
+  }
+
+  .contact-form-wrapper {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .contact-form-wrapper h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-5);
+  }
+
+  .form-group label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-gray-700);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form button {
+    width: 100%;
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .contact-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .contact-card h3 {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .contact-card p {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .contact-card-icon {
+    background: rgba(6, 182, 212, 0.15);
+  }
+
+  :global([data-theme="dark"]) .contact-link {
+    color: var(--color-primary-400);
+  }
+
+  :global([data-theme="dark"]) .contact-link:hover {
+    color: var(--color-primary-300);
+  }
+
+  :global([data-theme="dark"]) .social-links a {
+    color: var(--color-primary-400);
+  }
+
+  :global([data-theme="dark"]) .social-links a:hover {
+    color: var(--color-primary-300);
+  }
+
+  :global([data-theme="dark"]) .contact-form-wrapper {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .contact-form-wrapper h2 {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .form-group label {
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .form-group input,
+  :global([data-theme="dark"]) .form-group select,
+  :global([data-theme="dark"]) .form-group textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .form-group input:focus,
+  :global([data-theme="dark"]) .form-group select:focus,
+  :global([data-theme="dark"]) .form-group textarea:focus {
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+  }
+</style>

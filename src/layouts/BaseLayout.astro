@@ -1,0 +1,299 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const { title, description, image, type = 'website' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const siteName = 'SmartHem.nu';
+const siteDescription = 'Din kompletta guide till smarta hem, Home Assistant och smart teknik i Sverige';
+const defaultImage = '/og-image.png';
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Primary Meta Tags -->
+  <title>{title} | {siteName}</title>
+  <meta name="title" content={`${title} | ${siteName}`} />
+  <meta name="description" content={description || siteDescription} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description || siteDescription} />
+  <meta property="og:image" content={new URL(image || defaultImage, Astro.site)} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:locale" content="sv_SE" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description || siteDescription} />
+  <meta property="twitter:image" content={new URL(image || defaultImage, Astro.site)} />
+
+  <!-- Sitemap & RSS -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="SmartHem.nu RSS" href="/rss.xml" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": siteName,
+    "description": siteDescription,
+    "url": Astro.site?.toString() || "https://smarthem.nu",
+    "publisher": {
+      "@type": "Organization",
+      "name": siteName,
+      "logo": {
+        "@type": "ImageObject",
+        "url": new URL("/favicon.svg", Astro.site).toString()
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": new URL("/sok?q={search_term_string}", Astro.site).toString()
+      },
+      "query-input": "required name=search_term_string"
+    }
+  })} />
+
+  <slot name="structured-data" />
+
+  <!-- Prevent flash of wrong theme -->
+  <script is:inline>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <slot name="head" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav-container">
+      <a href="/" class="site-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2L3 12v18h26V12L16 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M12 30V18h8v12" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="12" r="3" fill="#0891b2"/>
+          <path d="M16 8v-2M20 12h2M16 16v2M12 12h-2" stroke="#0891b2" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span><span class="logo-smart">Smart</span>Hem.nu</span>
+      </a>
+
+      <button class="mobile-menu-btn" aria-label="Meny" id="mobile-menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class={currentPath === '/' ? 'active' : ''}>Hem</a></li>
+        <li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Guider</a></li>
+        <li><a href="/om-oss" class={currentPath === '/om-oss' ? 'active' : ''}>Om oss</a></li>
+        <li>
+          <a href="/sok" class={`nav-search-link ${currentPath === '/sok' ? 'active' : ''}`} aria-label="Sök">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <span class="nav-search-text">Sök</span>
+          </a>
+        </li>
+        <li>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Växla mörkt/ljust läge">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-smart">Smart</span>Hem.nu
+          </div>
+          <p class="footer-description">
+            Din kompletta guide till smarta hem. Vi hjälper dig att komma igång med Home Assistant,
+            välja rätt produkter och skapa ett intelligent hem.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-column-title">Guider</h4>
+          <ul class="footer-links">
+            <li><a href="/blog">Alla guider</a></li>
+            <li><a href="/kategori/home-assistant">Home Assistant</a></li>
+            <li><a href="/kategori/zigbee">Zigbee</a></li>
+            <li><a href="/kategori/matter">Matter</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-column-title">Kategorier</h4>
+          <ul class="footer-links">
+            <li><a href="/kategori/belysning">Belysning</a></li>
+            <li><a href="/kategori/sakerhet">Säkerhet</a></li>
+            <li><a href="/kategori/klimat">Klimat</a></li>
+            <li><a href="/kategori/underhallning">Underhållning</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-column-title">Information</h4>
+          <ul class="footer-links">
+            <li><a href="/om-oss">Om oss</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
+            <li><a href="/integritetspolicy">Integritetspolicy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; {new Date().getFullYear()} SmartHem.nu. Alla rättigheter förbehållna.
+        </p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <button id="back-to-top" class="back-to-top" aria-label="Tillbaka till toppen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <!-- Cookie consent banner -->
+  <div id="cookie-banner" class="cookie-banner" hidden>
+    <div class="cookie-content">
+      <p>Vi använder cookies för att förbättra din upplevelse på SmartHem.nu. Genom att fortsätta godkänner du vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
+      <div class="cookie-buttons">
+        <button id="cookie-accept" class="btn btn-primary btn-sm">Godkänn</button>
+        <button id="cookie-decline" class="btn btn-secondary btn-sm">Avböj</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+      navLinks?.classList.toggle('active');
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+
+    // Set initial theme
+    setTheme(getPreferredTheme());
+
+    themeToggle?.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop?.classList.add('visible');
+      } else {
+        backToTop?.classList.remove('visible');
+      }
+    });
+
+    backToTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Cookie consent
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookieAccept = document.getElementById('cookie-accept');
+    const cookieDecline = document.getElementById('cookie-decline');
+
+    if (!localStorage.getItem('cookie-consent')) {
+      cookieBanner?.removeAttribute('hidden');
+    }
+
+    cookieAccept?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      cookieBanner?.setAttribute('hidden', '');
+    });
+
+    cookieDecline?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'declined');
+      cookieBanner?.setAttribute('hidden', '');
+    });
+  </script>
+</body>
+</html>

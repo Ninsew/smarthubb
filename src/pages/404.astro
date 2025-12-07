@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Sidan hittades inte" description="Sidan du söker finns tyvärr inte.">
+  <div class="error-page">
+    <div class="container">
+      <div class="error-content">
+        <div class="error-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+
+        <h1>404</h1>
+        <p class="error-title">Sidan hittades inte</p>
+        <p class="error-description">
+          Sidan du letar efter verkar ha flyttat, tagits bort eller så har du skrivit fel adress.
+        </p>
+
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Till startsidan
+          </a>
+          <a href="/blog" class="btn btn-secondary">
+            Läs guider
+          </a>
+        </div>
+
+        <div class="error-suggestions">
+          <p>Kanske var du ute efter något av detta?</p>
+          <ul>
+            <li><a href="/blog/kom-igang-med-home-assistant">Kom igång med Home Assistant</a></li>
+            <li><a href="/blog/zigbee-vs-matter">Zigbee vs Matter</a></li>
+            <li><a href="/kategori/home-assistant">Home Assistant-guider</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-16) var(--spacing-4);
+  }
+
+  .error-content {
+    text-align: center;
+    max-width: 500px;
+  }
+
+  .error-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-6);
+    color: var(--color-primary-500);
+  }
+
+  .error-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  h1 {
+    font-size: 6rem;
+    font-weight: 800;
+    color: var(--color-gray-200);
+    line-height: 1;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .error-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .error-description {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--spacing-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-12);
+  }
+
+  .error-suggestions {
+    padding-top: var(--spacing-8);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .error-suggestions p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .error-suggestions ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .error-suggestions li {
+    margin-bottom: var(--spacing-2);
+  }
+
+  .error-suggestions a {
+    color: var(--color-primary-600);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+
+  .error-suggestions a:hover {
+    color: var(--color-primary-700);
+    text-decoration: underline;
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) h1 {
+    color: #334155;
+  }
+
+  :global([data-theme="dark"]) .error-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .error-description {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .error-suggestions {
+    border-top-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .error-suggestions p {
+    color: #64748b;
+  }
+
+  :global([data-theme="dark"]) .error-suggestions a {
+    color: var(--color-primary-400);
+  }
+
+  :global([data-theme="dark"]) .error-suggestions a:hover {
+    color: var(--color-primary-300);
+  }
+</style>

@@ -1,0 +1,11 @@
+# robots.txt for SmartHem.nu
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://smarthem.nu/sitemap-index.xml
+
+# Disallow admin/private areas (if any)
+Disallow: /api/
+Disallow: /_astro/

@@ -1,0 +1,186 @@
+---
+/**
+ * Comments component using Giscus (GitHub Discussions)
+ *
+ * To enable comments:
+ * 1. Go to https://giscus.app
+ * 2. Connect your GitHub repository
+ * 3. Enable GitHub Discussions on your repository
+ * 4. Configure giscus and copy the data attributes
+ * 5. Update the values below
+ */
+
+interface Props {
+  enabled?: boolean;
+}
+
+const { enabled = true } = Astro.props;
+
+// Configure these values from https://giscus.app
+const giscusConfig = {
+  repo: 'YOUR_GITHUB_USERNAME/YOUR_REPO_NAME',
+  repoId: 'YOUR_REPO_ID',
+  category: 'Comments',
+  categoryId: 'YOUR_CATEGORY_ID',
+  mapping: 'pathname',
+  reactionsEnabled: '1',
+  emitMetadata: '0',
+  inputPosition: 'top',
+  theme: 'preferred_color_scheme',
+  lang: 'sv',
+  loading: 'lazy'
+};
+
+// Check if giscus is configured
+const isConfigured = !giscusConfig.repo.includes('YOUR_');
+---
+
+{enabled && (
+  <div class="comments-section">
+    <div class="comments-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+      </svg>
+      <h2>Kommentarer</h2>
+    </div>
+
+    {isConfigured ? (
+      <div class="giscus-container">
+        <script
+          src="https://giscus.app/client.js"
+          data-repo={giscusConfig.repo}
+          data-repo-id={giscusConfig.repoId}
+          data-category={giscusConfig.category}
+          data-category-id={giscusConfig.categoryId}
+          data-mapping={giscusConfig.mapping}
+          data-reactions-enabled={giscusConfig.reactionsEnabled}
+          data-emit-metadata={giscusConfig.emitMetadata}
+          data-input-position={giscusConfig.inputPosition}
+          data-theme={giscusConfig.theme}
+          data-lang={giscusConfig.lang}
+          data-loading={giscusConfig.loading}
+          crossorigin="anonymous"
+          async
+        />
+      </div>
+    ) : (
+      <div class="comments-placeholder">
+        <p>Kommentarsfunktionen är inte aktiverad ännu.</p>
+        <p class="comments-placeholder-hint">
+          För att aktivera kommentarer, konfigurera Giscus i
+          <code>src/components/Comments.astro</code>
+        </p>
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .comments-section {
+    margin-top: var(--spacing-12);
+    padding-top: var(--spacing-10);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .comments-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .comments-header svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary-600);
+  }
+
+  .comments-header h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin: 0;
+  }
+
+  .giscus-container {
+    min-height: 200px;
+  }
+
+  .comments-placeholder {
+    background: var(--color-gray-50);
+    border: 1px dashed var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-8);
+    text-align: center;
+  }
+
+  .comments-placeholder p {
+    color: var(--color-gray-600);
+    margin: 0;
+  }
+
+  .comments-placeholder-hint {
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-2) !important;
+  }
+
+  .comments-placeholder code {
+    background: var(--color-gray-200);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .comments-section {
+    border-top-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .comments-header h2 {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .comments-placeholder {
+    background: #1e293b;
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .comments-placeholder p {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .comments-placeholder code {
+    background: #334155;
+    color: #cbd5e1;
+  }
+</style>
+
+<script>
+  // Update Giscus theme when the site theme changes
+  function updateGiscusTheme() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const giscusTheme = theme === 'dark' ? 'dark' : 'light';
+
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme } } },
+        'https://giscus.app'
+      );
+    }
+  }
+
+  // Watch for theme changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme') {
+        updateGiscusTheme();
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+</script>

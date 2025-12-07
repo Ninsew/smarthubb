@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/prose.css';
+---
+
+<BaseLayout title="Om oss" description="Lär känna teamet bakom SmartHem.nu - din kompletta guide till smarta hem och Home Assistant.">
+
+  <!-- Page Header -->
+  <div class="blog-header">
+    <div class="container">
+      <h1>Om SmartHem.nu</h1>
+      <p>Din kompletta guide till smarta hem, Home Assistant och intelligent teknologi.</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="prose">
+          <p>
+            SmartHem.nu grundades med en enkel vision: att göra smart hemteknik tillgänglig
+            för alla. Vi tror att ett smart hem inte behöver vara komplicerat eller dyrt.
+          </p>
+
+          <h2>Vår mission</h2>
+          <p>
+            Vi vill hjälpa svenska hemmabrukare att navigera i den snabbt växande världen
+            av smart hemteknik. Genom lättförståeliga guider, ärliga produktrecensioner
+            och praktiska tips ger vi dig verktygen att bygga ditt drömhem.
+          </p>
+
+          <h2>Vad vi fokuserar på</h2>
+          <ul>
+            <li><strong>Home Assistant</strong> - Den mest flexibla plattformen för smarta hem</li>
+            <li><strong>Zigbee & Matter</strong> - Framtidens protokoll för smart hemteknik</li>
+            <li><strong>Produktrecensioner</strong> - Ärliga tester av produkter som fungerar i Sverige</li>
+            <li><strong>Automationer</strong> - Praktiska tips för att göra ditt hem smartare</li>
+          </ul>
+
+          <h2>Varför lita på oss?</h2>
+          <p>
+            Vi testar alla produkter själva i våra egna hem. Vi har inga dolda samarbeten
+            och vår redaktionella integritet står alltid först. När vi rekommenderar
+            en produkt är det för att vi själva använder den.
+          </p>
+
+          <h2>Kontakta oss</h2>
+          <p>
+            Har du frågor, förslag eller vill samarbeta? Vi hör gärna från dig!
+            Skicka ett mail till <a href="mailto:hej@smarthem.nu">hej@smarthem.nu</a>
+          </p>
+        </div>
+
+        <!-- Feature boxes -->
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4"/>
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+            </div>
+            <h3>Testat & Verifierat</h3>
+            <p>Alla produkter testas i våra egna hem innan vi rekommenderar dem.</p>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3>Oberoende</h3>
+            <p>Ingen betalad reklam påverkar våra rekommendationer eller recensioner.</p>
+          </div>
+
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>För alla</h3>
+            <p>Från nybörjare till avancerade - vi har guider för alla nivåer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+    margin-top: var(--spacing-12);
+    padding-top: var(--spacing-12);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  @media (min-width: 768px) {
+    .about-features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .about-feature {
+    text-align: center;
+    padding: var(--spacing-6);
+    background: white;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .about-feature-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-100);
+    border-radius: var(--radius-xl);
+    color: var(--color-primary-600);
+  }
+
+  .about-feature-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .about-feature h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .about-feature p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .about-features {
+    border-top-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .about-feature {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .about-feature h3 {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .about-feature p {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .about-feature-icon {
+    background: rgba(6, 182, 212, 0.15);
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/prose.css';
+---
+
+<BaseLayout title="Integritetspolicy" description="Läs om hur SmartHem.nu hanterar dina personuppgifter och cookies.">
+
+  <!-- Page Header -->
+  <div class="blog-header">
+    <div class="container">
+      <h1>Integritetspolicy</h1>
+      <p>Så hanterar vi dina personuppgifter</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="policy-content">
+        <div class="prose">
+          <p class="last-updated">Senast uppdaterad: December 2025</p>
+
+          <h2>Introduktion</h2>
+          <p>
+            SmartHem.nu värnar om din integritet. Denna policy förklarar vilka uppgifter vi samlar in,
+            hur vi använder dem och vilka rättigheter du har enligt GDPR.
+          </p>
+
+          <h2>Vilka uppgifter samlar vi in?</h2>
+
+          <h3>Automatiskt insamlade uppgifter</h3>
+          <p>När du besöker vår webbplats kan följande information samlas in automatiskt:</p>
+          <ul>
+            <li>IP-adress (anonymiserad)</li>
+            <li>Webbläsartyp och version</li>
+            <li>Operativsystem</li>
+            <li>Besökta sidor och klickade länkar</li>
+            <li>Tid och datum för besök</li>
+          </ul>
+
+          <h3>Uppgifter du lämnar</h3>
+          <p>Om du kontaktar oss eller prenumererar på nyhetsbrev samlar vi in:</p>
+          <ul>
+            <li>Namn</li>
+            <li>E-postadress</li>
+            <li>Meddelanden du skickar</li>
+          </ul>
+
+          <h2>Hur använder vi dina uppgifter?</h2>
+          <p>Vi använder insamlade uppgifter för att:</p>
+          <ul>
+            <li>Förbättra webbplatsens innehåll och funktionalitet</li>
+            <li>Svara på frågor och förfrågningar</li>
+            <li>Skicka nyhetsbrev (om du prenumererar)</li>
+            <li>Analysera besöksstatistik</li>
+          </ul>
+
+          <h2>Cookies</h2>
+          <p>
+            Vi använder cookies för att förbättra din upplevelse på webbplatsen.
+            Cookies är små textfiler som lagras i din webbläsare.
+          </p>
+
+          <h3>Typer av cookies vi använder</h3>
+          <ul>
+            <li><strong>Nödvändiga cookies</strong> - Krävs för att webbplatsen ska fungera</li>
+            <li><strong>Analys-cookies</strong> - Hjälper oss förstå hur besökare använder sajten</li>
+            <li><strong>Annons-cookies</strong> - Används för att visa relevanta annonser</li>
+          </ul>
+
+          <p>
+            Du kan när som helst hantera dina cookie-inställningar i din webbläsare.
+            Observera att vissa funktioner kan påverkas om du blockerar cookies.
+          </p>
+
+          <h2>Tredjepartstjänster</h2>
+          <p>Vi använder följande tredjepartstjänster som kan samla in data:</p>
+          <ul>
+            <li><strong>Google Analytics</strong> - För besöksstatistik</li>
+            <li><strong>Google AdSense</strong> - För annonsvisning (kommer snart)</li>
+          </ul>
+          <p>
+            Dessa tjänster har sina egna integritetspolicyer som vi rekommenderar att du läser.
+          </p>
+
+          <h2>Dina rättigheter</h2>
+          <p>Enligt GDPR har du rätt att:</p>
+          <ul>
+            <li><strong>Få tillgång</strong> till dina personuppgifter</li>
+            <li><strong>Rätta</strong> felaktiga uppgifter</li>
+            <li><strong>Radera</strong> dina uppgifter ("rätten att bli glömd")</li>
+            <li><strong>Begränsa</strong> behandlingen av dina uppgifter</li>
+            <li><strong>Invända</strong> mot viss behandling</li>
+            <li><strong>Flytta</strong> dina uppgifter (dataportabilitet)</li>
+          </ul>
+
+          <h2>Datalagring</h2>
+          <p>
+            Vi sparar dina uppgifter så länge det är nödvändigt för att uppfylla ändamålet
+            med insamlingen. Kontaktuppgifter sparas i upp till 2 år efter senaste kontakt.
+          </p>
+
+          <h2>Säkerhet</h2>
+          <p>
+            Vi vidtar lämpliga tekniska och organisatoriska åtgärder för att skydda dina
+            personuppgifter mot obehörig åtkomst, förlust eller manipulation.
+          </p>
+
+          <h2>Kontakta oss</h2>
+          <p>
+            Om du har frågor om denna policy eller vill utöva dina rättigheter,
+            kontakta oss på:
+          </p>
+          <p>
+            <strong>E-post:</strong> <a href="mailto:hej@smarthem.nu">hej@smarthem.nu</a>
+          </p>
+
+          <h2>Ändringar i policyn</h2>
+          <p>
+            Vi kan uppdatera denna policy vid behov. Väsentliga ändringar meddelas
+            på webbplatsen. Fortsatt användning av sajten efter ändringar innebär
+            att du accepterar den uppdaterade policyn.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .policy-content {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+
+  .last-updated {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+    font-style: italic;
+    margin-bottom: var(--spacing-8);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .last-updated {
+    color: #64748b;
+    border-bottom-color: #334155;
+  }
+</style>

@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+const featuredPost = recentPosts[0];
+const otherPosts = recentPosts.slice(1);
+
+const categories = [
+  {
+    title: 'Home Assistant',
+    slug: 'home-assistant',
+    icon: 'home',
+    count: 12
+  },
+  {
+    title: 'Zigbee',
+    slug: 'zigbee',
+    icon: 'zigbee',
+    count: 8
+  },
+  {
+    title: 'Matter',
+    slug: 'matter',
+    icon: 'matter',
+    count: 5
+  },
+  {
+    title: 'Belysning',
+    slug: 'belysning',
+    icon: 'lightbulb',
+    count: 15
+  }
+];
+---
+
+<BaseLayout title="Hem" description="Din kompletta guide till smarta hem, Home Assistant och smart teknik. Guider, recensioner och tips för att bygga ditt intelligenta hem.">
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          <span>Sveriges smartaste hemguide</span>
+        </div>
+
+        <h1>
+          Bygg ditt <span class="highlight">smarta hem</span> med rätt kunskap
+        </h1>
+
+        <p class="hero-description">
+          Från nybörjare till expert. Vi hjälper dig att komma igång med Home Assistant,
+          välja rätt produkter och skapa automationer som gör livet enklare.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="/blog" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            Läs guider
+          </a>
+          <a href="/om-oss" class="btn btn-outline">
+            Lär känna oss
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Utforska</span>
+        <h2 class="section-title">Populära kategorier</h2>
+        <p class="section-description">
+          Hitta guider och artiklar inom de områden som intresserar dig mest.
+        </p>
+      </div>
+
+      <div class="categories-grid">
+        {categories.map(category => (
+          <a href={`/kategori/${category.slug}`} class="category-card">
+            <div class="category-card-icon">
+              {category.icon === 'home' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              )}
+              {category.icon === 'zigbee' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16l-8 8 8 8H4l8-8z"/>
+                </svg>
+              )}
+              {category.icon === 'matter' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+                </svg>
+              )}
+              {category.icon === 'lightbulb' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18h6M10 22h4"/>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="category-card-title">{category.title}</h3>
+            <span class="category-card-count">{category.count} artiklar</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Article -->
+  {featuredPost && (
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Utvalt</span>
+          <h2 class="section-title">Senaste artikeln</h2>
+        </div>
+
+        <a href={`/blog/${featuredPost.slug}`} class="featured-article">
+          <div class="featured-article-image">
+            {featuredPost.data.heroImage ? (
+              <img src={featuredPost.data.heroImage} alt={featuredPost.data.title} />
+            ) : (
+              <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+            )}
+          </div>
+          <div class="featured-article-content">
+            <span class="featured-article-label">Ny artikel</span>
+            <h3 class="featured-article-title">{featuredPost.data.title}</h3>
+            <p class="featured-article-excerpt">{featuredPost.data.description}</p>
+            <span class="btn btn-ghost">
+              Läs mer
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- Recent Articles -->
+  {otherPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Guider</span>
+          <h2 class="section-title">Senaste guiderna</h2>
+          <p class="section-description">
+            Praktiska guider och tips för att bygga ditt smarta hem.
+          </p>
+        </div>
+
+        <div class="articles-grid">
+          {otherPosts.map(post => (
+            <a href={`/blog/${post.slug}`} class="article-card">
+              <div class="article-card-image">
+                {post.data.heroImage ? (
+                  <img src={post.data.heroImage} alt={post.data.title} />
+                ) : (
+                  <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                      <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                  </div>
+                )}
+                {post.data.category && (
+                  <span class="article-card-category">{post.data.category}</span>
+                )}
+              </div>
+              <div class="article-card-content">
+                <h3 class="article-card-title">{post.data.title}</h3>
+                <p class="article-card-excerpt">{post.data.description}</p>
+                <div class="article-card-meta">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    {new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short' }).format(post.data.pubDate)}
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="/blog" class="btn btn-primary">
+            Se alla guider
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content">
+        <h2>Håll dig uppdaterad</h2>
+        <p>Prenumerera på vårt nyhetsbrev och få de senaste guiderna, tipsen och nyheterna om smarta hem direkt i din inkorg.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" name="email" placeholder="Din e-postadress" required />
+          <button type="submit">Prenumerera</button>
+        </form>
+        <p class="newsletter-privacy">Vi respekterar din integritet. Läs vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <h2 class="section-title">Redo att börja?</h2>
+      <p class="section-description mx-auto" style="max-width: 500px; margin-bottom: var(--spacing-8);">
+        Börja din resa mot ett smartare hem idag. Vår nybörjarguide tar dig genom allt du behöver veta.
+      </p>
+      <a href="/blog" class="btn btn-primary">
+        Kom igång nu
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
