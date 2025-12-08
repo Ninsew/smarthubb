@@ -1,10 +1,10 @@
-# robots.txt for SmartHem.nu
+# robots.txt for SmartHubb.se
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://smarthem.nu/sitemap-index.xml
+Sitemap: https://smarthubb.se/sitemap-index.xml
 
 # Disallow admin/private areas (if any)
 Disallow: /api/

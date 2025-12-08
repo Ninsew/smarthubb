@@ -5,8 +5,8 @@ export async function GET(context) {
   const blog = await getCollection('blog');
   
   return rss({
-    title: 'SmartHem.nu',
-    description: 'Din kompletta guide till smarta hem, Home Assistant och smart teknik i Sverige',
+    title: 'SmartHubb.se',
+    description: 'Guider och tips för smart hem och Home Assistant',
     site: context.site,
     items: blog
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())

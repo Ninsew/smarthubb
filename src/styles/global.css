@@ -1,5 +1,5 @@
 /* ============================================
-   SmartHem.nu - Modern Design System
+   SmartHubb.se - Modern Design System
    ============================================ */
 
 /* Google Fonts - Inter */
@@ -115,10 +115,6 @@
   border-bottom-color: #334155;
 }
 
-[data-theme="dark"] .site-logo span {
-  color: #f8fafc;
-}
-
 [data-theme="dark"] .nav-links a {
   color: #cbd5e1;
 }
@@ -179,7 +175,6 @@
   border-top-color: #1e293b;
 }
 
-[data-theme="dark"] .footer-logo,
 [data-theme="dark"] .footer-column-title {
   color: #f8fafc;
 }
@@ -699,19 +694,16 @@ a {
 .site-logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--color-secondary-900);
+  color: var(--color-gray-900);
 }
 
-.site-logo svg {
-  width: 32px;
-  height: 32px;
+.site-logo .logo-img {
+  height: 40px;
+  width: auto;
 }
 
-.site-logo .logo-smart {
-  color: var(--color-primary-600);
+[data-theme="dark"] .site-logo {
+  color: #f8fafc;
 }
 
 .nav-links {
@@ -1295,13 +1287,13 @@ a {
 }
 
 .footer-logo {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
   margin-bottom: var(--spacing-4);
+  color: #f8fafc;
 }
 
-.footer-logo .logo-smart {
-  color: var(--color-primary-400);
+.footer-logo-img {
+  height: 36px;
+  width: auto;
 }
 
 .footer-description {

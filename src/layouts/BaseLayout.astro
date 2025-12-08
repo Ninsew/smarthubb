@@ -11,8 +11,8 @@ interface Props {
 const { title, description, image, type = 'website' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const siteName = 'SmartHem.nu';
-const siteDescription = 'Din kompletta guide till smarta hem, Home Assistant och smart teknik i Sverige';
+const siteName = 'SmartHubb.se';
+const siteDescription = 'Guider och tips för smart hem och Home Assistant';
 const defaultImage = '/og-image.png';
 
 const currentPath = Astro.url.pathname;
@@ -49,7 +49,7 @@ const currentPath = Astro.url.pathname;
 
   <!-- Sitemap & RSS -->
   <link rel="sitemap" href="/sitemap-index.xml" />
-  <link rel="alternate" type="application/rss+xml" title="SmartHem.nu RSS" href="/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="SmartHubb.se RSS" href="/rss.xml" />
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -57,13 +57,13 @@ const currentPath = Astro.url.pathname;
     "@type": "WebSite",
     "name": siteName,
     "description": siteDescription,
-    "url": Astro.site?.toString() || "https://smarthem.nu",
+    "url": Astro.site?.toString() || "https://smarthubb.se",
     "publisher": {
       "@type": "Organization",
       "name": siteName,
       "logo": {
         "@type": "ImageObject",
-        "url": new URL("/favicon.svg", Astro.site).toString()
+        "url": new URL("/SmartHubbLogo.svg", Astro.site).toString()
       }
     },
     "potentialAction": {
@@ -94,13 +94,13 @@ const currentPath = Astro.url.pathname;
   <header class="site-header">
     <nav class="container nav-container">
       <a href="/" class="site-logo">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 2L3 12v18h26V12L16 2z" stroke="currentColor" stroke-width="2" fill="none"/>
-          <path d="M12 30V18h8v12" stroke="currentColor" stroke-width="2"/>
-          <circle cx="16" cy="12" r="3" fill="#0891b2"/>
-          <path d="M16 8v-2M20 12h2M16 16v2M12 12h-2" stroke="#0891b2" stroke-width="1.5" stroke-linecap="round"/>
+        <svg class="logo-img" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4L6 13v17a5 5 0 0 0 5 5h18a5 5 0 0 0 5-5V13L20 4z" stroke="var(--color-primary-600)" stroke-width="2.5" fill="none"/>
+          <circle cx="20" cy="23" r="2.5" fill="var(--color-primary-600)"/>
+          <path d="M15 19.5a7 7 0 0 1 10 0" stroke="var(--color-primary-600)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M11 15.5a12 12 0 0 1 18 0" stroke="var(--color-primary-600)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <text x="46" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="currentColor">SmartHubb</text>
         </svg>
-        <span><span class="logo-smart">Smart</span>Hem.nu</span>
       </a>
 
       <button class="mobile-menu-btn" aria-label="Meny" id="mobile-menu-btn">
@@ -146,11 +146,16 @@ const currentPath = Astro.url.pathname;
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo">
-            <span class="logo-smart">Smart</span>Hem.nu
+            <svg class="footer-logo-img" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4L6 13v17a5 5 0 0 0 5 5h18a5 5 0 0 0 5-5V13L20 4z" stroke="var(--color-primary-500)" stroke-width="2.5" fill="none"/>
+              <circle cx="20" cy="23" r="2.5" fill="var(--color-primary-500)"/>
+              <path d="M15 19.5a7 7 0 0 1 10 0" stroke="var(--color-primary-500)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M11 15.5a12 12 0 0 1 18 0" stroke="var(--color-primary-500)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <text x="46" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="currentColor">SmartHubb</text>
+            </svg>
           </div>
           <p class="footer-description">
-            Din kompletta guide till smarta hem. Vi hjälper dig att komma igång med Home Assistant,
-            välja rätt produkter och skapa ett intelligent hem.
+            Tips och guider för dig som vill bygga smart hem med Home Assistant.
           </p>
         </div>
 
@@ -186,7 +191,7 @@ const currentPath = Astro.url.pathname;
 
       <div class="footer-bottom">
         <p class="footer-copyright">
-          &copy; {new Date().getFullYear()} SmartHem.nu. Alla rättigheter förbehållna.
+          &copy; {new Date().getFullYear()} SmartHubb.se. Alla rättigheter förbehållna.
         </p>
         <div class="footer-social">
           <a href="#" aria-label="Facebook">
@@ -214,7 +219,7 @@ const currentPath = Astro.url.pathname;
   <!-- Cookie consent banner -->
   <div id="cookie-banner" class="cookie-banner" hidden>
     <div class="cookie-content">
-      <p>Vi använder cookies för att förbättra din upplevelse på SmartHem.nu. Genom att fortsätta godkänner du vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
+      <p>Vi använder cookies för att förbättra din upplevelse på SmartHubb.se. Genom att fortsätta godkänner du vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
       <div class="cookie-buttons">
         <button id="cookie-accept" class="btn btn-primary btn-sm">Godkänn</button>
         <button id="cookie-decline" class="btn btn-secondary btn-sm">Avböj</button>

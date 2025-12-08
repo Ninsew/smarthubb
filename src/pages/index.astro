@@ -1,77 +1,83 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { categories as categoryData } from '../data/categories';
 
 const allPosts = await getCollection('blog');
 const recentPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 6);
 
-const featuredPost = recentPosts[0];
-const otherPosts = recentPosts.slice(1);
+// Artiklar för hero-karusellen (de 3 senaste)
+const heroArticles = recentPosts.slice(0, 3);
 
-const categories = [
-  {
-    title: 'Home Assistant',
-    slug: 'home-assistant',
-    icon: 'home',
-    count: 12
-  },
-  {
-    title: 'Zigbee',
-    slug: 'zigbee',
-    icon: 'zigbee',
-    count: 8
-  },
-  {
-    title: 'Matter',
-    slug: 'matter',
-    icon: 'matter',
-    count: 5
-  },
-  {
-    title: 'Belysning',
-    slug: 'belysning',
-    icon: 'lightbulb',
-    count: 15
-  }
-];
+const otherPosts = recentPosts.slice(3);
+
+// Räkna artiklar per kategori dynamiskt
+const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].map(slug => {
+  const data = categoryData[slug];
+  const count = allPosts.filter(post =>
+    post.data.category?.toLowerCase() === slug
+  ).length;
+  return {
+    title: data.title,
+    slug,
+    icon: data.icon,
+    count
+  };
+});
 ---
 
 <BaseLayout title="Hem" description="Din kompletta guide till smarta hem, Home Assistant och smart teknik. Guider, recensioner och tips för att bygga ditt intelligenta hem.">
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+  <!-- Hero Carousel Section -->
+  <section class="hero-carousel">
+    <div class="carousel-container">
+      <div class="carousel-track" id="heroCarousel">
+        {heroArticles.map((post, index) => (
+          <a href={`/blog/${post.slug}`} class={`carousel-slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+            <div class="carousel-slide-bg">
+              {post.data.heroImage ? (
+                <img src={post.data.heroImage} alt={post.data.title} />
+              ) : (
+                <div class="carousel-placeholder"></div>
+              )}
+              <div class="carousel-overlay"></div>
+            </div>
+            <div class="carousel-content">
+              <div class="container">
+                <span class="carousel-badge">
+                  {post.data.category || 'Guide'}
+                </span>
+                <h2 class="carousel-title">{post.data.title}</h2>
+                <p class="carousel-excerpt">{post.data.description}</p>
+                <span class="carousel-cta">
+                  Läs artikel
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn prev" id="carouselPrev" aria-label="Föregående">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
           </svg>
-          <span>Sveriges smartaste hemguide</span>
+        </button>
+        <div class="carousel-dots" id="carouselDots">
+          {heroArticles.map((_, index) => (
+            <button class={`carousel-dot ${index === 0 ? 'active' : ''}`} data-index={index} aria-label={`Gå till slide ${index + 1}`}></button>
+          ))}
         </div>
-
-        <h1>
-          Bygg ditt <span class="highlight">smarta hem</span> med rätt kunskap
-        </h1>
-
-        <p class="hero-description">
-          Från nybörjare till expert. Vi hjälper dig att komma igång med Home Assistant,
-          välja rätt produkter och skapa automationer som gör livet enklare.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="/blog" class="btn btn-primary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-            </svg>
-            Läs guider
-          </a>
-          <a href="/om-oss" class="btn btn-outline">
-            Lär känna oss
-          </a>
-        </div>
+        <button class="carousel-btn next" id="carouselNext" aria-label="Nästa">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -83,12 +89,12 @@ const categories = [
         <span class="section-label">Utforska</span>
         <h2 class="section-title">Populära kategorier</h2>
         <p class="section-description">
-          Hitta guider och artiklar inom de områden som intresserar dig mest.
+          Välj ett område att läsa mer om.
         </p>
       </div>
 
       <div class="categories-grid">
-        {categories.map(category => (
+        {categoriesWithCount.map(category => (
           <a href={`/kategori/${category.slug}`} class="category-card">
             <div class="category-card-icon">
               {category.icon === 'home' && (
@@ -124,44 +130,6 @@ const categories = [
     </div>
   </section>
 
-  <!-- Featured Article -->
-  {featuredPost && (
-    <section class="section" style="padding-top: 0;">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Utvalt</span>
-          <h2 class="section-title">Senaste artikeln</h2>
-        </div>
-
-        <a href={`/blog/${featuredPost.slug}`} class="featured-article">
-          <div class="featured-article-image">
-            {featuredPost.data.heroImage ? (
-              <img src={featuredPost.data.heroImage} alt={featuredPost.data.title} />
-            ) : (
-              <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              </div>
-            )}
-          </div>
-          <div class="featured-article-content">
-            <span class="featured-article-label">Ny artikel</span>
-            <h3 class="featured-article-title">{featuredPost.data.title}</h3>
-            <p class="featured-article-excerpt">{featuredPost.data.description}</p>
-            <span class="btn btn-ghost">
-              Läs mer
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </span>
-          </div>
-        </a>
-      </div>
-    </section>
-  )}
-
   <!-- Recent Articles -->
   {otherPosts.length > 0 && (
     <section class="section">
@@ -170,7 +138,7 @@ const categories = [
           <span class="section-label">Guider</span>
           <h2 class="section-title">Senaste guiderna</h2>
           <p class="section-description">
-            Praktiska guider och tips för att bygga ditt smarta hem.
+            Nytt på sajten.
           </p>
         </div>
 
@@ -228,12 +196,12 @@ const categories = [
     <div class="container">
       <div class="newsletter-content">
         <h2>Håll dig uppdaterad</h2>
-        <p>Prenumerera på vårt nyhetsbrev och få de senaste guiderna, tipsen och nyheterna om smarta hem direkt i din inkorg.</p>
+        <p>Få nya guider och tips via mail.</p>
         <form class="newsletter-form" id="newsletter-form">
           <input type="email" name="email" placeholder="Din e-postadress" required />
           <button type="submit">Prenumerera</button>
         </form>
-        <p class="newsletter-privacy">Vi respekterar din integritet. Läs vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
+        <p class="newsletter-privacy">Läs vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
       </div>
     </div>
   </section>
@@ -243,7 +211,7 @@ const categories = [
     <div class="container text-center">
       <h2 class="section-title">Redo att börja?</h2>
       <p class="section-description mx-auto" style="max-width: 500px; margin-bottom: var(--spacing-8);">
-        Börja din resa mot ett smartare hem idag. Vår nybörjarguide tar dig genom allt du behöver veta.
+        Vill du komma igång? Kolla in våra guider för nybörjare.
       </p>
       <a href="/blog" class="btn btn-primary">
         Kom igång nu
@@ -255,3 +223,268 @@ const categories = [
   </section>
 
 </BaseLayout>
+
+<style>
+  /* Hero Carousel */
+  .hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+  }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    text-decoration: none;
+    color: white;
+    display: block;
+  }
+
+  .carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .carousel-slide-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-slide-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-800));
+  }
+
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+  }
+
+  .carousel-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-12) 0;
+    z-index: 2;
+  }
+
+  .carousel-badge {
+    display: inline-block;
+    background: var(--color-primary-500);
+    color: white;
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .carousel-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: white;
+    margin-bottom: var(--spacing-4);
+    max-width: 700px;
+    line-height: 1.2;
+  }
+
+  .carousel-excerpt {
+    font-size: var(--font-size-lg);
+    color: rgba(255,255,255,0.9);
+    margin-bottom: var(--spacing-6);
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .carousel-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: white;
+    font-weight: 600;
+    transition: gap 0.2s ease;
+  }
+
+  .carousel-slide:hover .carousel-cta {
+    gap: var(--spacing-3);
+  }
+
+  .carousel-nav {
+    position: absolute;
+    bottom: var(--spacing-6);
+    right: var(--spacing-6);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    z-index: 10;
+  }
+
+  .carousel-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .carousel-btn:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .carousel-dot.active {
+    background: white;
+    transform: scale(1.2);
+  }
+
+  .carousel-dot:hover {
+    background: rgba(255,255,255,0.7);
+  }
+
+  @media (max-width: 768px) {
+    .hero-carousel {
+      height: 400px;
+    }
+
+    .carousel-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .carousel-excerpt {
+      font-size: var(--font-size-base);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .carousel-nav {
+      bottom: var(--spacing-4);
+      right: var(--spacing-4);
+    }
+
+    .carousel-btn {
+      width: 36px;
+      height: 36px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+    let autoplayInterval: ReturnType<typeof setInterval>;
+
+    function showSlide(index: number) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentIndex = index;
+    }
+
+    function nextSlide() {
+      showSlide((currentIndex + 1) % slides.length);
+    }
+
+    function prevSlide() {
+      showSlide((currentIndex - 1 + slides.length) % slides.length);
+    }
+
+    function startAutoplay() {
+      autoplayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      stopAutoplay();
+      prevSlide();
+      startAutoplay();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      stopAutoplay();
+      nextSlide();
+      startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        showSlide(index);
+        startAutoplay();
+      });
+    });
+
+    startAutoplay();
+  });
+</script>
