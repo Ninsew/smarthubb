@@ -78,6 +78,19 @@ const currentPath = Astro.url.pathname;
 
   <slot name="structured-data" />
 
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6S0Z330L6"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E6S0Z330L6', {
+      page_path: window.location.pathname,
+      cookie_flags: 'SameSite=None;Secure',
+    });
+  </script>
+
   <!-- Prevent flash of wrong theme -->
   <script is:inline>
     (function() {
