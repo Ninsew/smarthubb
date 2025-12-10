@@ -1,9 +1,9 @@
 ---
 title: "Home Assistant 2025 - Komplett Guide till Smart Home-automation"
 description: "Lär dig allt om Home Assistant 2025! Komplett guide för nybörjare: installation, setup, automatiseringar och smart home-integration. Gratis och open source."
-pubDate: "2025-12-10T08:31:50.267033"
+pubDate: "2025-12-10T09:14:51.025351"
 heroImage: "https://www.home-assistant.io/images/dashboards/dashboard-hero.png"
-category: ""
+category: "Home Assistant"
 tags: []
 ---
 
@@ -11,7 +11,6 @@ tags: []
 
 **TL;DR:** Home Assistant är ett gratis, open source-system för hemautomation som ger dig full kontroll över dina smarta enheter lokalt. Med stöd för över 2000 integrationer, kraftfull automatisering och stark integritetsfokus är det det perfekta valet för dig som vill ha ett verkligt smart hem utan att vara beroende av molntjänster. Denna guide tar dig genom allt från installation till avancerade automatiseringar - perfekt för nybörjare som vill komma igång 2025.
 
-![Home Assistant dashboard visas på smartphone, tablet och datorskärm](https://www.home-assistant.io/images/dashboards/dashboard-hero.png)
 
 ## Vad är Home Assistant och Varför Välja Det 2025?
 
