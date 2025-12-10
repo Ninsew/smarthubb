@@ -1,7 +1,7 @@
 ---
 title: "HACS 2025: Komplett Guide till Installation & Bästa Integrationer"
 description: "Lär dig installera HACS för Home Assistant 2025. Steg-för-steg guide, säkerhetstips och de bästa integrationerna för ditt smarta hem."
-pubDate: "2025-12-09T10:34:53.688526"
+pubDate: "2025-12-10T08:29:34.941188"
 category: ""
 tags: []
 ---
