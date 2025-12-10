@@ -1,16 +1,14 @@
 ---
 title: "Home Assistant 2025.12 Guide: Labs, Automationer & Dashboard"
 description: "Komplett Home Assistant 2025.12 guide: Labs-funktioner, enklare automationer, dashboard-uppdateringar och Philips Hue BLE. Ladda ner nu!"
-pubDate: "2025-12-10T08:31:52.027296"
+pubDate: "2025-12-10T09:14:53.148720"
 heroImage: "https://yixu-elec.com/wp-content/uploads/2023/09/android-smart-home-control-panel.webp"
-category: ""
+category: "Home Assistant"
 tags: []
 ---
 
 # Home Assistant 2025.12: Komplett guide till alla nyheter i årets sista uppdatering
 
-![Home Assistant 2025.12 dashboard på tablet som visar smart hem-kontroller och automationer](https://yixu-elec.com/wp-content/uploads/2023/09/android-smart-home-control-panel.webp)
-*Bild från yixu-elec.com*
 
 
 Home Assistant 2025.12 lanserades 3 december och avslutar året med något av det bästa vi sett. Utvecklarna har äntligen levererat Labs-funktionerna vi väntat på - inklusive en charmig Winter mode med snöflockor - och gjort automationer så enkla att även din mormor kan skapa dem.
