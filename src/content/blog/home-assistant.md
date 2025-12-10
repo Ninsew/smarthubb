@@ -1,7 +1,8 @@
 ---
 title: "Home Assistant 2025 - Komplett Guide till Smart Home-automation"
 description: "Lär dig allt om Home Assistant 2025! Komplett guide för nybörjare: installation, setup, automatiseringar och smart home-integration. Gratis och open source."
-pubDate: "2025-12-10T08:29:28.529501"
+pubDate: "2025-12-10T08:31:50.267033"
+heroImage: "https://www.home-assistant.io/images/dashboards/dashboard-hero.png"
 category: ""
 tags: []
 ---
