@@ -1,16 +1,14 @@
 ---
 title: "Zigbee2MQTT Guide 2025: Installation, ZHA-jämförelse & Bästa Adaptrar"
 description: "Komplett Zigbee2MQTT-guide för Home Assistant. Lär dig installation, jämför med ZHA och hitta bästa CC2652-adaptrar för ditt smarta hem 2025."
-pubDate: "2025-12-10T08:31:53.708473"
+pubDate: "2025-12-10T09:14:54.987245"
 heroImage: "https://csa-iot.org/wp-content/uploads/2021/12/Zigbee_SmartHome-996x1024.png"
-category: ""
+category: "Zigbee"
 tags: ['zigbee', 'zigbee2mqtt']
 ---
 
 # Zigbee2MQTT Guide 2025: Installation, Jämförelse med ZHA och Bästa Adaptrar
 
-![Zigbee2MQTT setup med smart home-enheter och koordinator för Home Assistant integration](https://csa-iot.org/wp-content/uploads/2021/12/Zigbee_SmartHome-996x1024.png)
-*Bild från csa-iot.org*
 
 
 Zigbee2MQTT öppnar dörren till över 3000 smarta hem-enheter utan molnberoende - men är det rätt val för dig jämfört med ZHA? Här går vi igenom hur Zigbee2MQTT fungerar, vilken hårdvara du behöver och hur installationen går till. Plus en grundlig jämförelse med ZHA så du kan välja rätt lösning för ditt [smarta hem med Home Assistant](/home-assistant).
