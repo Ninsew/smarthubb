@@ -1,16 +1,14 @@
 ---
 title: "HACS 2025: Komplett Guide till Installation & Bästa Integrationer"
 description: "Lär dig installera HACS för Home Assistant 2025. Steg-för-steg guide, säkerhetstips och de bästa integrationerna för ditt smarta hem."
-pubDate: "2025-12-10T08:31:24.451441"
+pubDate: "2025-12-10T09:14:56.851411"
 heroImage: "https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png"
-category: ""
+category: "Home Assistant"
 tags: []
 ---
 
 # HACS för Home Assistant 2025: Komplett guide till installation och användning
 
-![HACS Home Assistant Community Store - komplett guide till installation och användning 2025](https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png)
-*Bild från i.pinimg.com*
 
 
 **HACS är som en app store för Home Assistant** - fast helt gratis och fylld med tusentals tillägg som communityn har skapat. Efter att ha kämpat med krånglig installation i åratal släppte utvecklarna äntligen version 2.0 i augusti 2024. Nu tar det bara några minuter att komma igång.
