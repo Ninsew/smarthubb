@@ -1,9 +1,9 @@
 ---
 title: "Home Assistant 2025.12 Guide: Labs, Automationer & Dashboard"
 description: "Komplett Home Assistant 2025.12 guide: Labs-funktioner, enklare automationer, dashboard-uppdateringar och Philips Hue BLE. Ladda ner nu!"
-pubDate: "2025-12-10T09:14:53.148720"
+pubDate: "2025-12-10T09:20:44.024953+00:00"
 heroImage: "https://yixu-elec.com/wp-content/uploads/2023/09/android-smart-home-control-panel.webp"
-category: "Home Assistant"
+category: "home-assistant"
 tags: []
 ---
 
