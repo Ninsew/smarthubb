@@ -1,7 +1,7 @@
 ---
 title: "Zigbee2MQTT Guide 2025: Installation, ZHA-jämförelse & Bästa Adaptrar"
 description: "Komplett Zigbee2MQTT-guide för Home Assistant. Lär dig installation, jämför med ZHA och hitta bästa CC2652-adaptrar för ditt smarta hem 2025."
-pubDate: "2025-12-09T09:30:06.644729"
+pubDate: "2025-12-10T08:29:33.073329"
 category: ""
 tags: ['zigbee', 'zigbee2mqtt']
 ---
