@@ -1,0 +1,87 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getRssFeeds } from '../../lib/db';
+
+const feeds = getRssFeeds() as any[];
+
+export const prerender = false;
+---
+
+<AdminLayout title="RSS-flöden | SmartHubb Admin">
+  <h1>Automatiska RSS-flöden</h1>
+  <p>Här hanterar du källor som SmartHubb AI läser av automatiskt för att skriva nyheter.</p>
+
+  <div class="admin-card" style="margin-top: 2rem;">
+    <h2>Lägg till nytt flöde</h2>
+    <form id="addFeedForm" style="display: grid; gap: 1rem; max-width: 600px;">
+      <div>
+        <label class="admin-label">Namn (t.ex. 'Home Assistant Blog')</label>
+        <input type="text" id="feedName" class="admin-input" required />
+      </div>
+      <div>
+        <label class="admin-label">RSS URL</label>
+        <input type="url" id="feedUrl" class="admin-input" required placeholder="https://..." />
+      </div>
+      <button type="submit" class="admin-btn" style="width: fit-content;">Spara Flöde</button>
+    </form>
+  </div>
+
+  <div class="admin-card">
+    <h2>Dina Flöden</h2>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Namn</th>
+          <th>URL</th>
+          <th>Status</th>
+          <th>Senast kollad</th>
+          <th>Åtgärd</th>
+        </tr>
+      </thead>
+      <tbody>
+        {feeds.map(feed => (
+          <tr>
+            <td>{feed.name}</td>
+            <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <a href={feed.url} target="_blank">{feed.url}</a>
+            </td>
+            <td>{feed.active ? '🟢 Aktiv' : '🔴 Pausad'}</td>
+            <td>{feed.last_checked ? new Date(feed.last_checked).toLocaleString('sv-SE') : 'Aldrig'}</td>
+            <td>
+              <button class="admin-btn danger delete-btn" data-id={feed.id}>Ta bort</button>
+            </td>
+          </tr>
+        ))}
+        {feeds.length === 0 && (
+          <tr><td colspan="5">Inga flöden inlagda.</td></tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</AdminLayout>
+
+<script>
+  document.getElementById('addFeedForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('feedName') as HTMLInputElement).value;
+    const url = (document.getElementById('feedUrl') as HTMLInputElement).value;
+
+    const res = await fetch('/api/admin/rss', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, url, category: 'nyheter' })
+    });
+
+    if (res.ok) window.location.reload();
+    else alert('Kunde inte spara flöde.');
+  });
+
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      if(!confirm('Är du säker?')) return;
+      const id = (e.target as HTMLButtonElement).dataset.id;
+      const res = await fetch(`/api/admin/rss?id=${id}`, { method: 'DELETE' });
+      if(res.ok) window.location.reload();
+    });
+  });
+</script>

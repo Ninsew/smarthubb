@@ -1,0 +1,41 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+export const prerender = false;
+---
+
+<AdminLayout title="Artiklar | SmartHubb Admin">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Publicerade Artiklar</h1>
+    <a href="/admin" class="admin-btn">+ Ny Artikel</a>
+  </div>
+
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Titel</th>
+          <th>Kategori</th>
+          <th>Datum</th>
+          <th>Åtgärd</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedPosts.map(post => (
+          <tr>
+            <td style="font-weight: 500;">{post.data.title}</td>
+            <td><span style="background: #e2e8f0; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">{post.data.category || 'Okategoriserad'}</span></td>
+            <td>{new Date(post.data.pubDate).toLocaleDateString('sv-SE')}</td>
+            <td>
+              <a href={`/blog/${post.slug}`} target="_blank" style="color: #2563eb; text-decoration: none; font-size: 0.9rem;">Visa</a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</AdminLayout>

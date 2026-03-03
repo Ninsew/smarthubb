@@ -1,0 +1,59 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getPrompts } from '../../lib/db';
+
+const prompts = getPrompts() as any[];
+
+export const prerender = false;
+---
+
+<AdminLayout title="AI Prompts | SmartHubb Admin">
+  <h1>AI Prompts & Instruktioner</h1>
+  <p>Här kan du finslipa exakt hur Claude ska bete sig och skriva.</p>
+
+  {prompts.map(prompt => (
+    <div class="admin-card">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+        <div>
+          <h2 style="margin: 0; color: #0f172a;">{prompt.name}</h2>
+          <p style="margin: 0.25rem 0 0 0; color: #64748b; font-size: 0.9rem;">{prompt.description}</p>
+        </div>
+      </div>
+      
+      <form class="prompt-form" data-name={prompt.name}>
+        <textarea 
+          class="admin-input" 
+          rows="12" 
+          style="font-family: monospace; line-height: 1.5; resize: vertical;"
+        >{prompt.content}</textarea>
+        <button type="submit" class="admin-btn" style="margin-top: 0.5rem;">Spara Ändringar</button>
+        <span class="save-status" style="margin-left: 1rem; color: #166534; display: none;">Sparad!</span>
+      </form>
+    </div>
+  ))}
+</AdminLayout>
+
+<script>
+  document.querySelectorAll('.prompt-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formEl = e.target as HTMLFormElement;
+      const name = formEl.dataset.name;
+      const content = formEl.querySelector('textarea')?.value;
+      const statusEl = formEl.querySelector('.save-status') as HTMLElement;
+
+      const res = await fetch('/api/admin/prompts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, content })
+      });
+
+      if (res.ok) {
+        statusEl.style.display = 'inline';
+        setTimeout(() => statusEl.style.display = 'none', 3000);
+      } else {
+        alert('Kunde inte spara prompt.');
+      }
+    });
+  });
+</script>

@@ -1,141 +1,141 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getLatestLogs } from '../../lib/db';
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getLatestLogs, getRssFeeds, getPrompts } from '../../lib/db';
+import { getCollection } from 'astro:content';
 
-const logs = getLatestLogs(20);
+const logs = getLatestLogs(10);
+const feeds = getRssFeeds() as any[];
+const prompts = getPrompts() as any[];
+const articles = await getCollection('blog');
 
-// Force dynamic rendering
 export const prerender = false;
 ---
 
-<BaseLayout title="Admin Dashboard | SmartHubb">
-  <main class="admin-container">
-    <h1>SmartHubb AI Dashboard</h1>
-    
-    <section class="controls">
-      <h2>Kontrollpanel</h2>
-      <div class="card">
-        <p>Trigger manuell artikel-generering</p>
-        <div class="input-group">
-          <input type="text" id="keyword" placeholder="Ange ämne (t.ex. 'Zigbee2MQTT Guide')" />
-          <button id="triggerBtn">Starta Generering</button>
-        </div>
-        <p id="statusMsg"></p>
-      </div>
-    </section>
+<AdminLayout title="Dashboard | SmartHubb Admin">
+  <h1>Översikt</h1>
+  
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>Totalt antal artiklar</h3>
+      <p class="stat-number">{articles.length}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Aktiva RSS-flöden</h3>
+      <p class="stat-number">{feeds.filter(f => f.active).length}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Laddade Prompts</h3>
+      <p class="stat-number">{prompts.length}</p>
+    </div>
+  </div>
 
-    <section class="logs">
-      <h2>Senaste Genereringar</h2>
-      <table>
-        <thead>
+  <div class="admin-card" style="margin-top: 2rem;">
+    <h2>Snabb-generering (Manuell)</h2>
+    <p style="color: #64748b; margin-bottom: 1rem;">Skriv ett ämne för att generera en artikel direkt.</p>
+    <div style="display: flex; gap: 1rem;">
+      <input type="text" id="keyword" class="admin-input" style="margin: 0;" placeholder="T.ex. 'Senaste nytt om Zigbee'" />
+      <button id="triggerBtn" class="admin-btn">Skapa Artikel</button>
+    </div>
+    <p id="statusMsg" style="margin-top: 1rem; font-weight: 500;"></p>
+  </div>
+
+  <div class="admin-card">
+    <h2>Senaste händelser (AI Logg)</h2>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Datum</th>
+          <th>Titel</th>
+          <th>Status</th>
+          <th>Tokens</th>
+        </tr>
+      </thead>
+      <tbody>
+        {logs.map((log: any) => (
           <tr>
-            <th>Datum</th>
-            <th>Titel</th>
-            <th>Ämne</th>
-            <th>Status</th>
-            <th>Tokens</th>
+            <td>{new Date(log.timestamp).toLocaleString('sv-SE')}</td>
+            <td>{log.title}</td>
+            <td>
+              <span class={`status-badge ${log.status}`}>
+                {log.status === 'success' ? 'Lyckades' : 'Misslyckades'}
+              </span>
+            </td>
+            <td>{log.tokens}</td>
           </tr>
-        </thead>
-        <tbody>
-          {logs.map((log: any) => (
-            <tr class={log.status}>
-              <td>{new Date(log.timestamp).toLocaleString('sv-SE')}</td>
-              <td>{log.title}</td>
-              <td>{log.keyword}</td>
-              <td>{log.status === 'success' ? '✅' : '❌'}</td>
-              <td>{log.tokens}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  </main>
+        ))}
+        {logs.length === 0 && (
+          <tr><td colspan="4">Inga händelser ännu.</td></tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</AdminLayout>
 
-  <style>
-    .admin-container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .card {
-      background: #f8f9fa;
-      border-radius: 8px;
-      padding: 1.5rem;
-      border: 1px solid #dee2e6;
-      margin-bottom: 2rem;
-    }
-    .input-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    input {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover { background: #0056b3; }
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .stat-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #64748b;
+  }
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+  .status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .status-badge.success { background: #dcfce7; color: #166534; }
+  .status-badge.failed { background: #fee2e2; color: #991b1b; }
+</style>
+
+<script>
+  const btn = document.getElementById('triggerBtn');
+  const input = document.getElementById('keyword') as HTMLInputElement;
+  const msg = document.getElementById('statusMsg');
+
+  btn?.addEventListener('click', async () => {
+    const keyword = input.value.trim();
+    if (!keyword) return alert('Ange ett ämne först!');
+
+    btn.setAttribute('disabled', 'true');
+    btn.innerText = 'Startar...';
     
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    th, td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid #dee2e6;
-    }
-    th { background: #f1f3f5; }
-    .failed { color: #dc3545; background: #fff5f5; }
-    
-    #statusMsg {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-  </style>
-
-  <script>
-    const btn = document.getElementById('triggerBtn');
-    const input = document.getElementById('keyword') as HTMLInputElement;
-    const msg = document.getElementById('statusMsg');
-
-    btn?.addEventListener('click', async () => {
-      const keyword = input.value.trim();
-      if (!keyword) return alert('Ange ett ämne först!');
-
-      btn.setAttribute('disabled', 'true');
-      btn.innerText = 'Startar...';
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ keyword })
+      });
       
-      try {
-        const res = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ keyword })
-        });
-        
-        if (res.ok) {
-          msg!.innerText = 'Generering påbörjad! Uppdatera sidan om en minut för att se loggen.';
-          msg!.style.color = 'green';
-        } else {
-          throw new Error('Misslyckades att starta');
-        }
-      } catch (e) {
-        msg!.innerText = 'Ett fel uppstod.';
-        msg!.style.color = 'red';
-      } finally {
-        btn.removeAttribute('disabled');
-        btn.innerText = 'Starta Generering';
+      if (res.ok) {
+        msg!.innerText = 'Generering påbörjad! Processen körs i bakgrunden.';
+        msg!.style.color = '#166534';
+        input.value = '';
+      } else {
+        throw new Error('Misslyckades att starta');
       }
-    });
-  </script>
-</BaseLayout>
+    } catch (e) {
+      msg!.innerText = 'Ett fel uppstod.';
+      msg!.style.color = '#991b1b';
+    } finally {
+      btn.removeAttribute('disabled');
+      btn.innerText = 'Skapa Artikel';
+    }
+  });
+</script>

@@ -1,0 +1,157 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title={title}>
+  <div class="admin-wrapper">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <h2>Admin Panel</h2>
+      </div>
+      <nav class="admin-nav">
+        <a href="/admin" class={currentPath === '/admin' ? 'active' : ''}>Dashboard</a>
+        <a href="/admin/articles" class={currentPath.startsWith('/admin/articles') ? 'active' : ''}>Artiklar</a>
+        <a href="/admin/rss" class={currentPath.startsWith('/admin/rss') ? 'active' : ''}>RSS-flöden</a>
+        <a href="/admin/prompts" class={currentPath.startsWith('/admin/prompts') ? 'active' : ''}>AI Prompts</a>
+      </nav>
+      <div class="admin-actions">
+        <a href="/" target="_blank" class="btn-outline">Visa Sajt ↗</a>
+      </div>
+    </aside>
+    <main class="admin-main">
+      <slot />
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .admin-wrapper {
+    display: flex;
+    min-height: calc(100vh - 60px); /* Adjust based on your header height */
+    background-color: #f8fafc;
+  }
+  .admin-sidebar {
+    width: 250px;
+    background-color: #1e293b;
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .admin-brand {
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  .admin-brand h2 {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  .admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+  .admin-nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  .admin-nav a:hover, .admin-nav a.active {
+    background-color: #334155;
+    color: white;
+  }
+  .admin-actions {
+    margin-top: auto;
+    padding: 1rem;
+  }
+  .btn-outline {
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid #475569;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-radius: 0.25rem;
+  }
+  .btn-outline:hover {
+    background: #334155;
+    color: white;
+  }
+  .admin-main {
+    flex-grow: 1;
+    padding: 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Global Admin Styles */
+  :global(.admin-card) {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  :global(.admin-table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  :global(.admin-table th), :global(.admin-table td) {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  :global(.admin-table th) {
+    background-color: #f1f5f9;
+    font-weight: 600;
+    color: #475569;
+  }
+  :global(.admin-table tr:hover) {
+    background-color: #f8fafc;
+  }
+  :global(.admin-btn) {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  :global(.admin-btn:hover) {
+    background-color: #1d4ed8;
+  }
+  :global(.admin-btn.danger) {
+    background-color: #ef4444;
+  }
+  :global(.admin-btn.danger:hover) {
+    background-color: #dc2626;
+  }
+  :global(.admin-input) {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.375rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  :global(.admin-label) {
+    font-weight: 500;
+    color: #334155;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+</style>

@@ -1,34 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { categories as categoryData } from '../data/categories';
 
 const allPosts = await getCollection('blog');
-const recentPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 6);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Artiklar för hero-karusellen (de 3 senaste)
-const heroArticles = recentPosts.slice(0, 3);
+const newsPosts = sortedPosts.filter(post => post.data.category === 'nyheter').slice(0, 4);
+const guidePosts = sortedPosts.filter(post => post.data.category !== 'nyheter').slice(0, 6);
 
-const otherPosts = recentPosts.slice(3);
+const heroArticles = sortedPosts.slice(0, 3);
 
-// Räkna artiklar per kategori dynamiskt
-const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].map(slug => {
-  const data = categoryData[slug];
-  const count = allPosts.filter(post =>
-    post.data.category?.toLowerCase() === slug
-  ).length;
-  return {
-    title: data.title,
-    slug,
-    icon: data.icon,
-    count
-  };
-});
+export const prerender = false;
 ---
 
-<BaseLayout title="Hem" description="Din kompletta guide till smarta hem, Home Assistant och smart teknik. Guider, recensioner och tips för att bygga ditt intelligenta hem.">
+<BaseLayout title="Hem" description="SmartHubb - Din kompletta guide till smarta hem, Home Assistant, Zigbee och smart teknik. Läs våra senaste nyheter och djupgående guider.">
 
   <!-- Hero Carousel Section -->
   <section class="hero-carousel">
@@ -82,74 +67,52 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
     </div>
   </section>
 
-  <!-- Categories Section -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Utforska</span>
-        <h2 class="section-title">Populära kategorier</h2>
-        <p class="section-description">
-          Välj ett område att läsa mer om.
-        </p>
-      </div>
+  <!-- News Section -->
+  {newsPosts.length > 0 && (
+    <section class="section" style="background: #f8fafc;">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Nyheter</span>
+          <h2 class="section-title">Senaste Nytt</h2>
+          <p class="section-description">Vad som händer i det smarta hemmet just nu.</p>
+        </div>
 
-      <div class="categories-grid">
-        {categoriesWithCount.map(category => (
-          <a href={`/kategori/${category.slug}`} class="category-card">
-            <div class="category-card-icon">
-              {category.icon === 'home' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              )}
-              {category.icon === 'zigbee' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16l-8 8 8 8H4l8-8z"/>
-                </svg>
-              )}
-              {category.icon === 'matter' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="4"/>
-                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-                </svg>
-              )}
-              {category.icon === 'lightbulb' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M9 18h6M10 22h4"/>
-                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
-                </svg>
-              )}
-            </div>
-            <h3 class="category-card-title">{category.title}</h3>
-            <span class="category-card-count">{category.count} artiklar</span>
-          </a>
-        ))}
+        <div class="articles-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          {newsPosts.map(post => (
+            <a href={`/blog/${post.slug}`} class="article-card">
+              <div class="article-card-content" style="padding: 1.5rem;">
+                <span style="color: #2563eb; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Nyhet</span>
+                <h3 class="article-card-title" style="font-size: 1.25rem;">{post.data.title}</h3>
+                <p class="article-card-excerpt" style="font-size: 0.9rem;">{post.data.description}</p>
+                <div class="article-card-meta">
+                  <span>{new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'short' }).format(post.data.pubDate)}</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Recent Articles -->
-  {otherPosts.length > 0 && (
+  <!-- Guides Section -->
+  {guidePosts.length > 0 && (
     <section class="section">
       <div class="container">
         <div class="section-header">
-          <span class="section-label">Guider</span>
-          <h2 class="section-title">Senaste guiderna</h2>
-          <p class="section-description">
-            Nytt på sajten.
-          </p>
+          <span class="section-label">Djupdykning</span>
+          <h2 class="section-title">Guider & Tips</h2>
+          <p class="section-description">Praktiska guider för att bygga och optimera ditt smarta hem.</p>
         </div>
 
         <div class="articles-grid">
-          {otherPosts.map(post => (
+          {guidePosts.map(post => (
             <a href={`/blog/${post.slug}`} class="article-card">
               <div class="article-card-image">
                 {post.data.heroImage ? (
                   <img src={post.data.heroImage} alt={post.data.title} />
                 ) : (
-                  <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                  <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #e2e8f0;">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                       <polyline points="9 22 9 12 15 12 15 22"/>
@@ -157,7 +120,7 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
                   </div>
                 )}
                 {post.data.category && (
-                  <span class="article-card-category">{post.data.category}</span>
+                  <span class="article-card-category" style="text-transform: capitalize;">{post.data.category}</span>
                 )}
               </div>
               <div class="article-card-content">
@@ -181,7 +144,7 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
 
         <div class="text-center mt-12">
           <a href="/blog" class="btn btn-primary">
-            Se alla guider
+            Utforska alla guider
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -190,37 +153,6 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
       </div>
     </section>
   )}
-
-  <!-- Newsletter Section -->
-  <section class="newsletter-section">
-    <div class="container">
-      <div class="newsletter-content">
-        <h2>Håll dig uppdaterad</h2>
-        <p>Få nya guider och tips via mail.</p>
-        <form class="newsletter-form" id="newsletter-form">
-          <input type="email" name="email" placeholder="Din e-postadress" required />
-          <button type="submit">Prenumerera</button>
-        </form>
-        <p class="newsletter-privacy">Läs vår <a href="/integritetspolicy">integritetspolicy</a>.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="section cta-section">
-    <div class="container text-center">
-      <h2 class="section-title">Redo att börja?</h2>
-      <p class="section-description mx-auto" style="max-width: 500px; margin-bottom: var(--spacing-8);">
-        Vill du komma igång? Kolla in våra guider för nybörjare.
-      </p>
-      <a href="/blog" class="btn btn-primary">
-        Kom igång nu
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
-    </div>
-  </section>
 
 </BaseLayout>
 
@@ -281,7 +213,7 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
   .carousel-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-800));
+    background: linear-gradient(135deg, #1e293b, #0f172a);
   }
 
   .carousel-overlay {
@@ -304,7 +236,7 @@ const categoriesWithCount = ['home-assistant', 'zigbee', 'matter', 'belysning'].
 
   .carousel-badge {
     display: inline-block;
-    background: var(--color-primary-500);
+    background: #2563eb;
     color: white;
     padding: var(--spacing-1) var(--spacing-3);
     border-radius: var(--radius-full);

@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="sv"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="canonical" href="https://smarthubb.se/blog/hacs/"><!-- Primary Meta Tags --><title>HACS 2025: Komplett Guide till Installation &amp; Bästa Integrationer | SmartHubb.se</title><meta name="title" content="HACS 2025: Komplett Guide till Installation &#38; Bästa Integrationer | SmartHubb.se"><meta name="description" content="Installera HACS i Home Assistant 2025! Komplett guide för att lägga till custom components, teman och kraftfulla automationer. Utöka ditt smart home enkelt."><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://smarthubb.se/blog/hacs/"><meta property="og:title" content="HACS 2025: Komplett Guide till Installation &#38; Bästa Integrationer"><meta property="og:description" content="Installera HACS i Home Assistant 2025! Komplett guide för att lägga till custom components, teman och kraftfulla automationer. Utöka ditt smart home enkelt."><meta property="og:image" content="https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png"><meta property="og:site_name" content="SmartHubb.se"><meta property="og:locale" content="sv_SE"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://smarthubb.se/blog/hacs/"><meta property="twitter:title" content="HACS 2025: Komplett Guide till Installation &#38; Bästa Integrationer"><meta property="twitter:description" content="Installera HACS i Home Assistant 2025! Komplett guide för att lägga till custom components, teman och kraftfulla automationer. Utöka ditt smart home enkelt."><meta property="twitter:image" content="https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png"><!-- Sitemap & RSS --><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="SmartHubb.se RSS" href="/rss.xml"><!-- JSON-LD Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SmartHubb.se","description":"Guider och tips för smart hem och Home Assistant","url":"https://smarthubb.se/","publisher":{"@type":"Organization","name":"SmartHubb.se","logo":{"@type":"ImageObject","url":"https://smarthubb.se/SmartHubbLogo.svg"}},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://smarthubb.se/sok?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"HACS 2025: Komplett Guide till Installation & Bästa Integrationer","description":"Installera HACS i Home Assistant 2025! Komplett guide för att lägga till custom components, teman och kraftfulla automationer. Utöka ditt smart home enkelt.","image":"https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png","datePublished":"2025-12-10T10:37:50.764Z","dateModified":"2025-12-10T10:37:50.764Z","author":{"@type":"Person","name":"Redaktionen","url":"https://smarthubb.se/"},"publisher":{"@type":"Organization","name":"SmartHubb.se","logo":{"@type":"ImageObject","url":"https://smarthubb.se/SmartHubbLogo.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://smarthubb.se/blog/hacs/"},"articleSection":"home-assistant","keywords":""}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hem","item":"https://smarthubb.se/"},{"@type":"ListItem","position":2,"name":"Guider","item":"https://smarthubb.se/blog"},{"@type":"ListItem","position":3,"name":"home-assistant","item":"https://smarthubb.se/kategori/home-assistant"},{"@type":"ListItem","position":4,"name":"HACS 2025: Komplett Guide till Installation & Bästa Integrationer"}]}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-E6S0Z330L6"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E6S0Z330L6', {
+      page_path: window.location.pathname,
+      cookie_flags: 'SameSite=None;Secure',
+    });
+  </script><!-- Prevent flash of wrong theme --><script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script><link rel="stylesheet" href="/_astro/_slug_.CKyzMUlQ.css">
+<link rel="stylesheet" href="/_astro/_slug_.C2FoH00j.css">
+<link rel="stylesheet" href="/_astro/_slug_.yNQc7ZIt.css"><script type="module" src="/_astro/hoisted.C31bkfJY.js"></script></head> <body> <header class="site-header"> <nav class="container nav-container"> <a href="/" class="site-logo"> <svg class="logo-img" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M20 4L6 13v17a5 5 0 0 0 5 5h18a5 5 0 0 0 5-5V13L20 4z" stroke="var(--color-primary-600)" stroke-width="2.5" fill="none"></path> <circle cx="20" cy="23" r="2.5" fill="var(--color-primary-600)"></circle> <path d="M15 19.5a7 7 0 0 1 10 0" stroke="var(--color-primary-600)" stroke-width="2.5" stroke-linecap="round" fill="none"></path> <path d="M11 15.5a12 12 0 0 1 18 0" stroke="var(--color-primary-600)" stroke-width="2.5" stroke-linecap="round" fill="none"></path> <text x="46" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="currentColor">SmartHubb</text> </svg> </a> <button class="mobile-menu-btn" aria-label="Meny" id="mobile-menu-btn"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <path d="M3 12h18M3 6h18M3 18h18"></path> </svg> </button> <ul class="nav-links" id="nav-links"> <li><a href="/" class="">Hem</a></li> <li><a href="/blog" class="active">Guider</a></li> <li><a href="/om-oss" class="">Om oss</a></li> <li> <a href="/sok" class="nav-search-link " aria-label="Sök"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <circle cx="11" cy="11" r="8"></circle> <path d="m21 21-4.35-4.35"></path> </svg> <span class="nav-search-text">Sök</span> </a> </li> <li> <button id="theme-toggle" class="theme-toggle" aria-label="Växla mörkt/ljust läge"> <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <circle cx="12" cy="12" r="5"></circle> <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path> </svg> <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> </button> </li> </ul> </nav> </header> <main>      <nav class="breadcrumbs" aria-label="Breadcrumb" data-astro-cid-zm77yjld> <div class="container" data-astro-cid-zm77yjld> <ol data-astro-cid-zm77yjld> <li data-astro-cid-zm77yjld> <a href="/" data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-zm77yjld> <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" data-astro-cid-zm77yjld></path> </svg>
+Hem
+</a> </li> <li data-astro-cid-zm77yjld> <a href="/blog" data-astro-cid-zm77yjld>Guider</a> </li> <li data-astro-cid-zm77yjld> <a href="/kategori/home-assistant" data-astro-cid-zm77yjld>home-assistant</a> </li> <li aria-current="page" data-astro-cid-zm77yjld>HACS 2025: Komplett Guide till Installation &amp; Bästa Integrationer</li> </ol> </div> </nav>  <header class="article-header" data-astro-cid-zm77yjld> <div class="container" data-astro-cid-zm77yjld> <div class="article-header-content" data-astro-cid-zm77yjld> <a href="/kategori/home-assistant" class="article-category-link" data-astro-cid-zm77yjld> home-assistant </a> <h1 class="article-title" data-astro-cid-zm77yjld>HACS 2025: Komplett Guide till Installation &amp; Bästa Integrationer</h1> <div class="article-meta" data-astro-cid-zm77yjld> <span data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-zm77yjld> <rect x="3" y="4" width="18" height="18" rx="2" ry="2" data-astro-cid-zm77yjld></rect> <line x1="16" y1="2" x2="16" y2="6" data-astro-cid-zm77yjld></line> <line x1="8" y1="2" x2="8" y2="6" data-astro-cid-zm77yjld></line> <line x1="3" y1="10" x2="21" y2="10" data-astro-cid-zm77yjld></line> </svg> <time datetime="2025-12-10T10:37:50.764Z" data-astro-cid-zm77yjld> 10 december 2025 </time> </span> <span data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-zm77yjld> <circle cx="12" cy="12" r="10" data-astro-cid-zm77yjld></circle> <polyline points="12 6 12 12 16 14" data-astro-cid-zm77yjld></polyline> </svg> 11 min läsning
+</span> </div>  </div> </div> </header>  <div class="article-body" data-astro-cid-zm77yjld> <article class="article-content" data-astro-cid-zm77yjld> <div class="article-hero-image" data-astro-cid-zm77yjld> <img src="https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png" alt="HACS 2025: Komplett Guide till Installation &#38; Bästa Integrationer" loading="eager" data-astro-cid-zm77yjld> </div> <div class="prose" data-astro-cid-zm77yjld>  <h1 id="hacs-för-home-assistant-2025-komplett-guide-till-installation-och-användning">HACS för Home Assistant 2025: Komplett guide till installation och användning</h1>
+<p><strong>HACS är som en app store för Home Assistant</strong> - fast helt gratis och fylld med tusentals tillägg som communityn har skapat. Efter att ha kämpat med krånglig installation i åratal släppte utvecklarna äntligen version 2.0 i augusti 2024. Nu tar det bara några minuter att komma igång.</p>
+<p>Jag guidar dig genom hela processen, från installation till att hitta de bästa tilläggen (och undvika de dåliga).</p>
+<h2 id="tldr---det-viktigaste-om-hacs">TL;DR - Det viktigaste om HACS</h2>
+<p>HACS är som en app store för Home Assistant, fast gratis. Du får tusentals extra funktioner som communityn har byggt.</p>
+<p><strong>Det viktigaste att veta:</strong></p>
+<ul>
+<li>Helt gratis (ingen prenumeration eller dolda avgifter)</li>
+<li>Tar några minuter att installera - mycket enklare än förut</li>
+<li>Du hittar nästan allt här som inte finns i officiella butiken</li>
+<li>Uppdateras automatiskt precis som vanliga Home Assistant-komponenter</li>
+<li>Du behöver bara ett GitHub-konto (gratis att skapa)</li>
+</ul>
+<h2 id="innehållsförteckning">Innehållsförteckning</h2>
+<ol>
+<li><a href="#vad-%C3%A4r-hacs-home-assistant-community-store">Vad är HACS?</a></li>
+<li><a href="#nyheter-i-hacs-20-2024-2025">Nyheter i HACS 2.0</a></li>
+<li><a href="#s%C3%A5-installerar-du-hacs-2025---steg-f%C3%B6r-steg">Installation</a></li>
+<li><a href="#s%C3%A5-anv%C3%A4nder-du-hacs-gr%C3%A4nssnittet">Användning</a></li>
+<li><a href="#de-b%C3%A4sta-hacs-integrationerna-2025">Bästa integrationerna 2025</a></li>
+<li><a href="#s%C3%A4kerhetsaspekter-vid-anv%C3%A4ndning-av-hacs">Säkerhet</a></li>
+<li><a href="#vanliga-problem-och-fels%C3%B6kning">Vanliga problem</a></li>
+<li><a href="#faq---vanliga-fr%C3%A5gor-om-hacs">FAQ</a></li>
+</ol>
+<h2 id="vad-är-hacs-home-assistant-community-store">Vad är HACS (Home Assistant Community Store)?</h2>
+<p><strong>Tänk på HACS som Google Play eller App Store, fast för Home Assistant.</strong> Istället för att bara få de integrationer som Home Assistant-teamet hinner bygga får du tillgång till allt som smarta användare runt om i världen har skapat för sina egna behov.</p>
+<p>Det betyder specialiserade lösningar för specifika problem som kanske aldrig blir officiella. Som integration för svenska elpriser från Nordpool, eller stöd för obscura smarthemprodukter.</p>
+<p>Över 6 800 stjärnor på GitHub visar att HACS är ett av de mest populära tilläggen. Community-driven utveckling har skapat ett rikt ekosystem där utvecklare bidrar med allt från väderwidgets till avancerade automationsverktyg.</p>
+<p>HACS hanterar fyra typer av innehåll:</p>
+<ul>
+<li><strong>Integrationer</strong> - Stöd för nya enheter eller tjänster</li>
+<li><strong>Frontend</strong> - Ändrar hur Home Assistant ser ut</li>
+<li><strong>Themes</strong> - Färgscheman och designändringar</li>
+<li><strong>AppDaemon</strong> - Avancerade automationer</li>
+</ul>
+<h2 id="nyheter-i-hacs-20-2024-2025">Nyheter i HACS 2.0 (2024-2025)</h2>
+<p>HACS 2.0 är den största uppdateringen sedan starten. Installationen går nu via Home Assistant Add-ons istället för krångliga GitHub-nedladdningar.</p>
+<p>Gränssnittet är snabbare och mer intuitivt. Sökfunktionen fungerar mycket bättre - tidigare kunde det kännas hopplöst att hitta rätt bland tusentals komponenter.</p>
+<p>Men den största förbättringen? Uppdateringshantering. HACS 2.0 integrerar med Home Assistants notifikationssystem. Samma uppdateringsvarningar som för officiella komponenter. Inga fler missade uppdateringar.</p>
+<p>Prestandan är också mycket bättre. Tidigare versioner kunde krypa med stora bibliotek, men 2.0 hanterar även omfattande installationer smidigt.</p>
+<p>Om du redan har HACS installerat uppdateras det automatiskt. Alla befintliga integrationer fortsätter fungera.</p>
+<h2 id="så-installerar-du-hacs-2025---steg-för-steg">Så installerar du HACS 2025 - steg för steg</h2>
+<p>Installation har blivit betydligt enklare. Här är hela processen från start till mål.</p>
+<h3 id="vad-du-behöver-först">Vad du behöver först</h3>
+<p>Du behöver ett GitHub-konto eftersom HACS hämtar alla komponenter därifrån. Det är gratis att skapa på github.com.</p>
+<p>Din Home Assistant bör köra version 2024.1 eller senare. Jag kör alltid senaste versionen - färre problem med kompatibilitet.</p>
+<p>Ta en backup först. Gå till Inställningar > System > Säkerhetskopior och skapa en fullständig säkerhetskopia. HACS-installationen är säker, men det är alltid smart att ha en återställningspunkt.</p>
+<h3 id="installation-via-add-on">Installation via Add-on</h3>
+<p>Nya metoden använder Home Assistants inbyggda add-on-system. Mycket säkrare än tidigare manuella metoder.</p>
+<ol>
+<li>Gå till <strong>Inställningar > Add-ons > Add-on Store</strong></li>
+<li>Klicka på menyn (tre prickar) → <strong>Repositories</strong></li>
+<li>Lägg till repository: <code>https://github.com/hacs/addons</code></li>
+<li>Installera <strong>HACS</strong> från listan</li>
+<li>Klicka <strong>“Installera”</strong> (tar 2-3 minuter)</li>
+<li>När färdigt: klicka <strong>“Starta”</strong></li>
+<li>Markera <strong>“Start on boot”</strong></li>
+<li>Logga ut och in igen</li>
+</ol>
+<p>HACS ska nu synas som en menypost i sidopanelen. Om inte, vänta några minuter och ladda om.</p>
+<h3 id="första-uppstarten">Första uppstarten</h3>
+<p>Klicka på HACS så startar konfigurationsguiden. Första steget är att koppla till GitHub - klicka “Authorize with GitHub” och följ instruktionerna.</p>
+<p>HACS frågar om du förstår att custom integrationer kan påverka Home Assistant. Viktig säkerhetsvarning - läs den och markera efter du förstått.</p>
+<p>Efter auktorisering tar det några minuter att synka med GitHub och ladda alla repositories. När det är klart ser du HACS huvudgränssnitt med alla kategorier.</p>
+<p>Testa genom att navigera mellan kategorierna. Ser du tusentals komponenter har allt fungerat.</p>
+<h2 id="så-använder-du-hacs-gränssnittet">Så använder du HACS-gränssnittet</h2>
+<p>HACS kan kännas överväldigande första gången. Här är de viktigaste funktionerna.</p>
+<h3 id="hitta-rätt-i-biblioteket">Hitta rätt i biblioteket</h3>
+<p>Fyra huvudkategorier:</p>
+<ul>
+<li><strong>Integrations</strong> - Funktionalitet som stöd för nya enheter</li>
+<li><strong>Frontend</strong> - Visuella förbättringar och custom cards</li>
+<li><strong>Themes</strong> - Färgscheman och design</li>
+<li><strong>Automation</strong> - AppDaemon-appar</li>
+</ul>
+<p>Sökfunktionen i toppen är guld. Sök på märken (“philips”), funktioner (“weather”) eller utvecklarnamn.</p>
+<p>Sortera efter popularitet genom “Most starred” - ofta bra för att hitta välbeprövade integrationer. Eller “Recently updated” för att se vad som händer.</p>
+<p>Varje integration visar GitHub-stjärnor (popularitet), senaste uppdatering och beskrivning. Klicka för detaljerad information och användarrecensioner.</p>
+<h3 id="installera-integrationer">Installera integrationer</h3>
+<p>Klicka på integrationen för att se detaljsidan. Här finns omfattande info om vad den gör, vilka enheter den stöder och konfigurationskrav.</p>
+<p>Installation är standardiserad. Klicka “Download” eller “Install” och vänta. De flesta kräver Home Assistant-omstart, vilket HACS tydligt informerar om.</p>
+<p>Efter omstart hittar du nya integrationer under Inställningar > Enheter &#x26; tjänster > Lägg till integration.</p>
+<p>Uppdateringar kommer som vanliga Home Assistant-notifikationer. Klicka notifikationen och sedan “Update”.</p>
+<p>HACS 2.0 stöder batch-uppdateringar - uppdatera flera samtidigt istället för en i taget. Sparar tid och omstarter.</p>
+<h2 id="de-bästa-hacs-integrationerna-2025">De bästa HACS-integrationerna 2025</h2>
+<p>Med tusentals alternativ är det svårt att veta var man börjar. Här är mina favoriter efter års användning.</p>
+<h3 id="ui-förbättringar-och-themes">UI-förbättringar och themes</h3>
+<p><strong>Mushroom Cards</strong> har blivit riktigt populärt det senaste året. Jag gillar det rena utseendet, särskilt på telefonen där standard-korten kan kännas klumpiga. Dock kan det ta ett tag att vänja sig om du är van vid det gamla gränssnittet.</p>
+<p><strong>Card Mod</strong> låter dig anpassa alla cards med CSS. Kräver lite teknisk kunskap men öppnar oändliga möjligheter. Ändra färger, storlekar, animationer - vad som helst.</p>
+<p>För themes kör jag <strong>Google Dark Theme</strong>. Professionell känsla som många föredrar framför standard-utseendet. Uppdateras regelbundet.</p>
+<p><strong>Button Card</strong> är extremt mångsidigt. Skapa anpassade knappar med ikoner, animationer och komplexa layouts. Perfekt för control panels som ser ut precis som du vill.</p>
+<h3 id="viktiga-sensorer-och-data">Viktiga sensorer och data</h3>
+<p><strong>HASS Workday Binary Sensor</strong> är guld för svenska användare. Förstår svenska helgdagar och arbetstider. Ovärderlig för automationer som ska bete sig olika på arbetsdagar och helger.</p>
+<p><strong>Nordpool integration</strong> ger realtidspriser från Nord Pool. För hushåll med rörligt elpris är detta fantastiskt för att automatisera energikrävande apparater till billigare timmar.</p>
+<p><strong>SMHI Weather</strong> använder SMHI:s data istället för internationella tjänster. Mycket mer exakt för svenska förhållanden. Inkluderar varningar och detaljerade prognoser.</p>
+<p><strong>Waste Collection Schedule</strong> håller koll på sophämtning. Stöder många svenska kommuner och kan skicka påminnelser eller styra belysning för att visa vilka kärl som ska ut.</p>
+<h3 id="enhetsspecifika-favoriter">Enhetsspecifika favoriter</h3>
+<p>För <a href="/zigbee">Zigbee-användare</a> är <strong>Zigbee2MQTT Discovery</strong> ovärderlig om du kör <a href="/zigbee2mqtt">Zigbee2MQTT</a>. Automatiserar upptäckt av enheter och förenklar konfiguration.</p>
+<p><strong>Browser Mod</strong> styr webbläsare som visar Home Assistant-dashboards. Kontrollera ljud, visa popups, stäng av skärmar programmatiskt.</p>
+<p><strong>Auto Entities</strong> skapar dynamiska dashboards som uppdateras automatiskt när du lägger till enheter. Istället för att manuellt lägga till varje ny lampa sköter Auto Entities det baserat på regler.</p>
+<h2 id="säkerhetsaspekter-vid-användning-av-hacs">Säkerhetsaspekter vid användning av HACS</h2>
+<p>HACS-integrationer har inte genomgått samma granskning som officiella. I värsta fall kan en skadlig integration läcka dina Home Assistant-inloggningsuppgifter eller ge utomstående tillgång till ditt hemmanätverk. Låter läskigt? Det är sällsynt, men det har hänt.</p>
+<h3 id="bedöm-säkerhet-hos-integrationer">Bedöm säkerhet hos integrationer</h3>
+<p>Första intryck säger mycket. Kolla GitHub-stjärnor och forks - populära integrationer med många användare har oftast högre kvalitet. Tusentals stjärnor är bättre än några få.</p>
+<p>Se utvecklingsaktivitet. Regelbundna uppdateringar och aktiva diskussioner visar engagerade utvecklare. Undvik integrationer som inte uppdaterats på över ett år.</p>
+<p>Läs användarrecensioner och GitHub-issues. Här hittar du varningar om säkerhetsproblem som andra upptäckt. Många öppna issues utan svar från utvecklaren är en röd flagga.</p>
+<p>Granska behörigheter. En väderintegration behöver inte tillgång till personliga filer eller nätverksinställningar. Oproportionerliga behörigheter är misstänkt.</p>
+<h3 id="säkra-rutiner">Säkra rutiner</h3>
+<p>Skapa alltid backup innan installation. Home Assistants backup-funktion är perfekt.</p>
+<p>Testa på utvecklingsmiljö först om möjligt. Många kör separat Home Assistant-instans för testning.</p>
+<p>Installera inte många integrationer samtidigt. Gör det svårt att hitta problemkällor. En i taget, testa ordentligt.</p>
+<p>Håll integrationer uppdaterade men vänta några dagar efter release. Låter andra hitta problem först. Följ GitHub-repositories för information om kända problem.</p>
+<h3 id="övervakning">Övervakning</h3>
+<p>Övervaka prestanda efter nya installationer. Om Home Assistant blir långsamt kan det vara en problematisk integration. Använd inbyggda systemverktyg för att identifiera resurskrävande komponenter.</p>
+<p>Granska regelbundet vad du faktiskt använder. Lätt att samla många integrationer, men varje installation ökar komplexitet och risker. Städa bort oanvänt.</p>
+<p>Sätt upp loggövervakning för kritiska fel. Kan konfigureras för att varna om integrationer genererar många fel.</p>
+<p>Följ communityn på Reddit, Discord och officiella forum. Information om säkerhetsproblem eller buggar sprids snabbt här.</p>
+<h2 id="vanliga-problem-och-felsökning">Vanliga problem och felsökning</h2>
+<p>Trots enklare installation kan problem uppstå. Här är de vanligaste och hur du löser dem.</p>
+<h3 id="hacs-syns-inte-efter-installation">HACS syns inte efter installation</h3>
+<p>Detta händer ofta nya användare. Vanligen är det webbläsarens cache eller att Home Assistant inte startats om ordentligt.</p>
+<p>Börja med att ladda om sidan (Ctrl+F5 eller Cmd+Shift+R). Om HACS fortfarande inte syns, logga ut och in igen.</p>
+<p>Kontrollera att HACS-tillägget körs. Gå till Inställningar > Add-ons och kolla att HACS visar “Running”. Om “Stopped”, klicka “Start” och vänta.</p>
+<p>Ibland kan andra custom components skapa konflikt. Kolla Home Assistant-loggen för felmeddelanden med “hacs” eller “error”.</p>
+<h3 id="github-problem">GitHub-problem</h3>
+<p>GitHub-auktorisering kan krångla av flera anledningar. Vanligast är att kontot inte har rätt behörigheter eller nätverksproblem.</p>
+<p>Kontrollera att GitHub-kontot är fullt aktiverat och verifierat. Nya konton eller konton utan verifierad email kan ha begränsningar.</p>
+<p>Rensa cookies och cache för både Home Assistant och GitHub. Logga ut från båda, rensa data och försök igen.</p>
+<p>Företagsfirewalls eller VPN kan blockera GitHub API. Testa utan VPN eller från annat nätverk.</p>
+<h3 id="integrationer-fungerar-inte">Integrationer fungerar inte</h3>
+<p>När installerade integrationer krånglar, börja med kompatibilitet. Äldre integrationer fungerar inte alltid med senaste Home Assistant.</p>
+<p>Kolla integrationens GitHub-sida för kompatibilitetsinformation och kända problem.</p>
+<p>Granska Home Assistant-loggen efter omstart. Felmeddelanden ger ledtrådar om vad som behöver fixas. Vanliga problem är saknade Python-bibliotek eller konfigurationsfel.</p>
+<p>Prova avinstallation och ominstallation. Ibland skapar andra komponenter konflikter som ren installation löser.</p>
+<h3 id="prestanda--och-stabilitetsproblem">Prestanda- och stabilitetsproblem</h3>
+<p>Om Home Assistant blir instabilt efter HACS, identifiera systematiskt orsaken. Börja med att inaktivera alla nyligen installerade integrationer.</p>
+<p>Aktivera en integration i taget och testa stabilitet. Tar tid men är effektivt för att hitta problemkällor.</p>
+<p>Övervaka systemresurser med inbyggd systemmonitor. Vissa integrationer kan vara resurskrävande, särskilt på Raspberry Pi.</p>
+<p>Om problemen kvarstår kan du behöva kraftfullare system eller minska antalet aktiva integrationer.</p>
+<h2 id="faq---vanliga-frågor-om-hacs">FAQ - Vanliga frågor om HACS</h2>
+<h3 id="vad-är-skillnaden-mellan-hacs-och-officiella-integrationer">Vad är skillnaden mellan HACS och officiella integrationer?</h3>
+<p>HACS-grejer är gjorda av vanliga användare som du och jag, inte Home Assistant-teamet. Det betyder att du kan hitta stöd för nästan vad som helst - men kvaliteten varierar enormt. Officiella integrationer är tråkigare men du vet att de funkar.</p>
+<h3 id="kan-hacs-skada-min-installation">Kan HACS skada min installation?</h3>
+<p>HACS själv är säkert och vältestat, men enskilda integrationer kan orsaka instabilitet. Därför är säkerhetskopiering och selektivitet viktigt. Välj populära, välunderhållna integrationer.</p>
+<h3 id="hur-ofta-uppdateras-integrationer">Hur ofta uppdateras integrationer?</h3>
+<p>Varierar kraftigt. Populära uppdateras månadsvis, andra kan gå år mellan uppdateringar. HACS 2.0 notifierar automatiskt om tillgängliga uppdateringar.</p>
+<h3 id="måste-jag-ha-github-konto">Måste jag ha GitHub-konto?</h3>
+<p>Ja, krävs för API-åtkomst. Gratis att skapa och du behöver inga utvecklingskunskaper. Kontot används bara för HACS-auktorisering.</p>
+<h3 id="vad-händer-om-en-integration-överges">Vad händer om en integration överges?</h3>
+<p>Den kan fortsätta fungera tills Home Assistant gör förändringar som bryter kompatibiliteten. Du kan söka alternativ eller, med teknisk kunskap, försöka uppdatera själv. Communityn tar ofta över populära övergivna projekt.</p>
+<h3 id="påverkar-hacs-prestandan">Påverkar HACS prestandan?</h3>
+<p>HACS själv knappt alls, men installerade integrationer varierar. De flesta väloptimerade har minimal påverkan, några kan vara resurskrävande. Övervaka och avinstallera problematiska.</p>
+<h3 id="kan-jag-säkerhetskopiera-hacs-integrationer">Kan jag säkerhetskopiera HACS-integrationer?</h3>
+<p>Ja, inkluderas i Home Assistants standardbackups. Vid återställning installeras både HACS och integrationer automatiskt. Gör det säkert att experimentera.</p>
+<h3 id="fungerar-hacs-med-home-assistant-os">Fungerar HACS med Home Assistant OS?</h3>
+<p>Ja, fungerar med OS, Container, Core och Supervised. Samma installationsmetod oavsett plattform. HACS 2.0 enhetligade detta för alla installationstyper.</p>
+<h2 id="sammanfattning-och-nästa-steg">Sammanfattning och Nästa Steg</h2>
+<p>HACS har blivit en oumbärlig del av Home Assistant-ekosystemet och öppnar upp för tusentals community-drivna integrationer och gränssnittsanpassningar. Med 2025.12-versionen är installationen enklare än någonsin, och du får tillgång till kraftfulla verktyg som Node-RED, Adaptive Lighting och avancerade kortdesigner som Mushroom Cards.</p>
+<p>Börja med att installera HACS enligt guiden ovan, utforska kategorier som intresserar dig, och lägg till några populära integrationer för att se vad som är möjligt. Kom ihåg att alltid läsa dokumentationen för varje integration och håll ett öga på Home Assistant-forumet för tips och rekommendationer från communityn.</p>
+<p>Din Home Assistant-resa blir betydligt mer kraftfull med HACS - lycka till med utforskandet!</p>  </div> <!-- Share Buttons --> <div class="share-section" data-astro-cid-zm77yjld> <p class="share-label" data-astro-cid-zm77yjld>Dela artikeln</p> <div class="share-buttons" data-astro-cid-zm77yjld> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsmarthubb.se%2Fblog%2Fhacs%2F" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Dela på Facebook" data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="currentColor" data-astro-cid-zm77yjld> <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" data-astro-cid-zm77yjld></path> </svg>
+Facebook
+</a> <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsmarthubb.se%2Fblog%2Fhacs%2F&text=HACS%202025%3A%20Komplett%20Guide%20till%20Installation%20%26%20B%C3%A4sta%20Integrationer" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Dela på X (Twitter)" data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="currentColor" data-astro-cid-zm77yjld> <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" data-astro-cid-zm77yjld></path> </svg>
+X
+</a> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsmarthubb.se%2Fblog%2Fhacs%2F" target="_blank" rel="noopener noreferrer" class="share-btn share-linkedin" aria-label="Dela på LinkedIn" data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="currentColor" data-astro-cid-zm77yjld> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-zm77yjld></path> </svg>
+LinkedIn
+</a> <button class="share-btn share-copy" data-url="https://smarthubb.se/blog/hacs/" aria-label="Kopiera länk" data-astro-cid-zm77yjld> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-zm77yjld> <rect x="9" y="9" width="13" height="13" rx="2" ry="2" data-astro-cid-zm77yjld></rect> <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" data-astro-cid-zm77yjld></path> </svg>
+Kopiera
+</button> </div> </div>  <!-- Comments --> <div class="comments-section" data-astro-cid-jvxsf75u><div class="comments-header" data-astro-cid-jvxsf75u><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-jvxsf75u><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" data-astro-cid-jvxsf75u></path></svg><h2 data-astro-cid-jvxsf75u>Kommentarer</h2></div><div class="comments-placeholder" data-astro-cid-jvxsf75u><p data-astro-cid-jvxsf75u>Kommentarsfunktionen är inte aktiverad ännu.</p><p class="comments-placeholder-hint" data-astro-cid-jvxsf75u>
+För att aktivera kommentarer, konfigurera Giscus i
+<code data-astro-cid-jvxsf75u>src/components/Comments.astro</code></p></div></div> </article> </div>  <section class="section related-section" data-astro-cid-zm77yjld> <div class="container" data-astro-cid-zm77yjld> <div class="section-header text-center" data-astro-cid-zm77yjld> <span class="section-label" data-astro-cid-zm77yjld>Relaterat</span> <h2 class="section-title" data-astro-cid-zm77yjld>Fler guider du kanske gillar</h2> </div> <div class="articles-grid related-grid" data-astro-cid-zm77yjld> <a href="/blog/home-assistant-202512" class="article-card" data-astro-cid-zm77yjld> <div class="article-card-image" data-astro-cid-zm77yjld> <img src="https://yixu-elec.com/wp-content/uploads/2023/09/android-smart-home-control-panel.webp" alt="Home Assistant 2025.12 Guide: Labs, Automationer &#38; Dashboard" data-astro-cid-zm77yjld> <span class="article-card-category" data-astro-cid-zm77yjld>home-assistant</span> </div> <div class="article-card-content" data-astro-cid-zm77yjld> <h3 class="article-card-title" data-astro-cid-zm77yjld>Home Assistant 2025.12 Guide: Labs, Automationer &amp; Dashboard</h3> <p class="article-card-excerpt" data-astro-cid-zm77yjld>Upptäck Home Assistant 2025.12! Lär dig om nya Voice Assistant Labs-features och smarta automationer för ett mer intelligent hem. Komplett nybörjarguide.</p> </div> </a><a href="/blog/home-assistant" class="article-card" data-astro-cid-zm77yjld> <div class="article-card-image" data-astro-cid-zm77yjld> <img src="https://i.pinimg.com/originals/dc/f2/88/dcf288c27607b35561b5f8460b1e85f0.png" alt="Home Assistant 2025 - Komplett Guide till Smart Home-automation" data-astro-cid-zm77yjld> <span class="article-card-category" data-astro-cid-zm77yjld>home-assistant</span> </div> <div class="article-card-content" data-astro-cid-zm77yjld> <h3 class="article-card-title" data-astro-cid-zm77yjld>Home Assistant 2025 - Komplett Guide till Smart Home-automation</h3> <p class="article-card-excerpt" data-astro-cid-zm77yjld>Lär dig allt om Home Assistant 2025! Komplett guide för nybörjare: installation, setup, automatiseringar och smart home-integration. Gratis och open source.</p> </div> </a><a href="/blog/ikeas-nya-matterprodukter" class="article-card" data-astro-cid-zm77yjld> <div class="article-card-image" data-astro-cid-zm77yjld> <img src="https://www.ikea.com/us/en/images/products/dirigera-hub-for-smart-products-white-smart__1180668_pe896401_s5.jpg?f=s" alt="IKEAs 21 nya Matter-produkter 2025: KAJPLATS &#38; sensorer guide" data-astro-cid-zm77yjld> <span class="article-card-category" data-astro-cid-zm77yjld>home-assistant</span> </div> <div class="article-card-content" data-astro-cid-zm77yjld> <h3 class="article-card-title" data-astro-cid-zm77yjld>IKEAs 21 nya Matter-produkter 2025: KAJPLATS &amp; sensorer guide</h3> <p class="article-card-excerpt" data-astro-cid-zm77yjld>Komplett guide till IKEAs största smart hem-satsning någonsin: 21 Matter-produkter inklusive KAJPLATS belysningsserie, ALPSTUGA luftkvalitetsmätare och avancerade sensorer. Perfekt för Home Assistant-integration.</p> </div> </a> </div> <div class="text-center mt-8" data-astro-cid-zm77yjld> <a href="/blog" class="btn btn-secondary" data-astro-cid-zm77yjld>
+Se alla guider
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-zm77yjld> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-zm77yjld></path> </svg> </a> </div> </div> </section> </main> <footer class="site-footer"> <div class="container"> <div class="footer-grid"> <div class="footer-brand"> <div class="footer-logo"> <svg class="footer-logo-img" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M20 4L6 13v17a5 5 0 0 0 5 5h18a5 5 0 0 0 5-5V13L20 4z" stroke="var(--color-primary-500)" stroke-width="2.5" fill="none"></path> <circle cx="20" cy="23" r="2.5" fill="var(--color-primary-500)"></circle> <path d="M15 19.5a7 7 0 0 1 10 0" stroke="var(--color-primary-500)" stroke-width="2.5" stroke-linecap="round" fill="none"></path> <path d="M11 15.5a12 12 0 0 1 18 0" stroke="var(--color-primary-500)" stroke-width="2.5" stroke-linecap="round" fill="none"></path> <text x="46" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="currentColor">SmartHubb</text> </svg> </div> <p class="footer-description">
+Tips och guider för dig som vill bygga smart hem med Home Assistant.
+</p> </div> <div> <h4 class="footer-column-title">Guider</h4> <ul class="footer-links"> <li><a href="/blog">Alla guider</a></li> <li><a href="/kategori/home-assistant">Home Assistant</a></li> <li><a href="/kategori/zigbee">Zigbee</a></li> <li><a href="/kategori/matter">Matter</a></li> </ul> </div> <div> <h4 class="footer-column-title">Kategorier</h4> <ul class="footer-links"> <li><a href="/kategori/belysning">Belysning</a></li> <li><a href="/kategori/sakerhet">Säkerhet</a></li> <li><a href="/kategori/klimat">Klimat</a></li> <li><a href="/kategori/underhallning">Underhållning</a></li> </ul> </div> <div> <h4 class="footer-column-title">Information</h4> <ul class="footer-links"> <li><a href="/om-oss">Om oss</a></li> <li><a href="/kontakt">Kontakt</a></li> <li><a href="/integritetspolicy">Integritetspolicy</a></li> </ul> </div> </div> <div class="footer-bottom"> <p class="footer-copyright">
+&copy; 2026 SmartHubb.se. Alla rättigheter förbehållna.
+</p> <div class="footer-social"> <a href="#" aria-label="Facebook"> <svg viewBox="0 0 24 24" fill="currentColor"> <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path> </svg> </a> <a href="#" aria-label="YouTube"> <svg viewBox="0 0 24 24" fill="currentColor"> <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path> </svg> </a> </div> </div> </div> </footer> <!-- Back to top button --> <button id="back-to-top" class="back-to-top" aria-label="Tillbaka till toppen"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"> <path d="M18 15l-6-6-6 6"></path> </svg> </button> <!-- Cookie consent banner --> <div id="cookie-banner" class="cookie-banner" hidden> <div class="cookie-content"> <p>Vi använder cookies för att förbättra din upplevelse på SmartHubb.se. Genom att fortsätta godkänner du vår <a href="/integritetspolicy">integritetspolicy</a>.</p> <div class="cookie-buttons"> <button id="cookie-accept" class="btn btn-primary btn-sm">Godkänn</button> <button id="cookie-decline" class="btn btn-secondary btn-sm">Avböj</button> </div> </div> </div>  </body> </html>  

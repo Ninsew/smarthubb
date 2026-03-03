@@ -1,0 +1,11 @@
+# robots.txt for SmartHubb.se
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://smarthubb.se/sitemap-index.xml
+
+# Disallow admin/private areas (if any)
+Disallow: /api/
+Disallow: /_astro/

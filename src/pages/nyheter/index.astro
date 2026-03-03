@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const newsPosts = allPosts
+  .filter(post => post.data.category === 'nyheter')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+export const prerender = false;
+---
+
+<BaseLayout title="Nyheter" description="Senaste nyheterna om smarta hem, Home Assistant, Zigbee och Matter.">
+  <div class="blog-header">
+    <div class="container">
+      <h1>SmartHubb Nyheter</h1>
+      <p>Håll dig uppdaterad med det senaste inom smarta hem.</p>
+    </div>
+  </div>
+
+  <div class="container section">
+    <div class="articles-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+      {newsPosts.map(post => (
+        <a href={`/blog/${post.slug}`} class="article-card">
+          <div class="article-card-content" style="padding: 1.5rem;">
+            <span style="color: #2563eb; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Nyhet</span>
+            <h2 class="article-card-title" style="font-size: 1.25rem;">{post.data.title}</h2>
+            <p class="article-card-excerpt" style="font-size: 0.9rem;">{post.data.description}</p>
+            <div class="article-card-meta">
+              <span>{new Intl.DateTimeFormat('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }).format(post.data.pubDate)}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+      {newsPosts.length === 0 && (
+        <p>Inga nyheter publicerade ännu.</p>
+      )}
+    </div>
+  </div>
+</BaseLayout>
