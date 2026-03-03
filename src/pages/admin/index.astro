@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLatestLogs } from '../../lib/db';
+
+const logs = getLatestLogs(20);
+
+// Force dynamic rendering
+export const prerender = false;
+---
+
+<BaseLayout title="Admin Dashboard | SmartHubb">
+  <main class="admin-container">
+    <h1>SmartHubb AI Dashboard</h1>
+    
+    <section class="controls">
+      <h2>Kontrollpanel</h2>
+      <div class="card">
+        <p>Trigger manuell artikel-generering</p>
+        <div class="input-group">
+          <input type="text" id="keyword" placeholder="Ange ämne (t.ex. 'Zigbee2MQTT Guide')" />
+          <button id="triggerBtn">Starta Generering</button>
+        </div>
+        <p id="statusMsg"></p>
+      </div>
+    </section>
+
+    <section class="logs">
+      <h2>Senaste Genereringar</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Titel</th>
+            <th>Ämne</th>
+            <th>Status</th>
+            <th>Tokens</th>
+          </tr>
+        </thead>
+        <tbody>
+          {logs.map((log: any) => (
+            <tr class={log.status}>
+              <td>{new Date(log.timestamp).toLocaleString('sv-SE')}</td>
+              <td>{log.title}</td>
+              <td>{log.keyword}</td>
+              <td>{log.status === 'success' ? '✅' : '❌'}</td>
+              <td>{log.tokens}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <style>
+    .admin-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid #dee2e6;
+      margin-bottom: 2rem;
+    }
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #dee2e6;
+    }
+    th { background: #f1f3f5; }
+    .failed { color: #dc3545; background: #fff5f5; }
+    
+    #statusMsg {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+
+  <script>
+    const btn = document.getElementById('triggerBtn');
+    const input = document.getElementById('keyword') as HTMLInputElement;
+    const msg = document.getElementById('statusMsg');
+
+    btn?.addEventListener('click', async () => {
+      const keyword = input.value.trim();
+      if (!keyword) return alert('Ange ett ämne först!');
+
+      btn.setAttribute('disabled', 'true');
+      btn.innerText = 'Startar...';
+      
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ keyword })
+        });
+        
+        if (res.ok) {
+          msg!.innerText = 'Generering påbörjad! Uppdatera sidan om en minut för att se loggen.';
+          msg!.style.color = 'green';
+        } else {
+          throw new Error('Misslyckades att starta');
+        }
+      } catch (e) {
+        msg!.innerText = 'Ett fel uppstod.';
+        msg!.style.color = 'red';
+      } finally {
+        btn.removeAttribute('disabled');
+        btn.innerText = 'Starta Generering';
+      }
+    });
+  </script>
+</BaseLayout>
